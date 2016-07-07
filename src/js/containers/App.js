@@ -5,8 +5,8 @@ import { Route, IndexRoute } from 'react-router';
 
 import actions from '../actions';
 
-import SideBar from './SideBar';
-import TitleBar from './TitleBar';
+import SideBar from '../components/SideBar';
+import TitleBar from '../components/TitleBar';
 
 class App extends Component {
   render() {

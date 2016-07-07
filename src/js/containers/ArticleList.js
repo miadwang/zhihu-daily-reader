@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import actions from '../actions';
-import Article from './Article';
+import Article from '../components/Article';
 
 class ArticleList extends Component {
   render() {

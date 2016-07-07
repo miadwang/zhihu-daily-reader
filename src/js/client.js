@@ -6,9 +6,9 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import configureStore from './store';
 import actions from './actions';
-import App from './components/App';
-import ArticleList from './components/ArticleList';
-import ArticleDetails from './components/ArticleDetails';
+import App from './containers/App';
+import ArticleList from './containers/ArticleList';
+import ArticleDetails from './containers/ArticleDetails';
 
 const initialState = {};
 
