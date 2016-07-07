@@ -3,26 +3,26 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Route, IndexRoute } from 'react-router';
 
-import actions from './actions';
+import actions from '../actions';
 
-import SideBar from './components/SideBar';
-import TitleBar from './components/TitleBar';
-import ArticleList from './components/ArticleList';
+import SideBar from './SideBar';
+import TitleBar from './TitleBar';
 
 class App extends Component {
   render() {
     return (
       <div id="wrapper">
-        <SideBar themes={this.props.themes} actions={this.props.actions}/>
+        <SideBar themes={this.props} actions={this.props.actions}/>
         <TitleBar/>
-        <ArticleList latest={this.props.latest} article={this.props.article} actions={this.props.actions}/>
+
+        {this.props.children}
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  return state;
+  return state.theme;
 }
 
 function mapDispatchToProps(dispatch) {

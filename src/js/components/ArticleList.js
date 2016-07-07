@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import actions from '../actions';
 import Article from './Article';
-import ArticleDetails from './ArticleDetails';
 
 class ArticleList extends Component {
   render() {
@@ -9,13 +11,15 @@ class ArticleList extends Component {
       <div id="page-content-wrapper">
         <div className="container-fluid">
           <div className="row">
-            <ul className="col-lg-12">
+            <ul className="col-lg-6">
               {
-                this.props.latest.articles.map((article, key) => <Article key={key} article={article} actions={this.props.actions}/>
+                this.props.articles.map((article, key) => <Article key={key} article={article} actions={this.props.actions}/>
                 )
               }
             </ul>
-            <ArticleDetails details={this.props.article}/>
+            <div className="col-lg-6">
+            {this.props.children}
+            </div>
           </div>
         </div>
       </div>
@@ -23,4 +27,14 @@ class ArticleList extends Component {
   }
 }
 
-export default ArticleList;
+function mapStateToProps(state) {
+  return state.latest;
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleList);
