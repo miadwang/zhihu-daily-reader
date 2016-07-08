@@ -2,8 +2,7 @@ const articleInitialState = {
   fetching: false,
   fetched: false,
   error: null,
-  body: '',
-  css: []
+  body: ''
 };
 
 const latestReducer = (state=articleInitialState, action) => {
@@ -18,8 +17,7 @@ const latestReducer = (state=articleInitialState, action) => {
       return {...state,
           fetching: false,
           fetched: true,
-          body: action.payload.data.body,
-          css: action.payload.data.css
+          body: action.payload.data.body
       };
     }
   }

@@ -2,7 +2,7 @@ const themeInitialState = {
   fetching: false,
   fetched: false,
   error: null,
-  themes: []
+  themeList: []
 };
 
 const themeReducer = (state=themeInitialState, action) => {
@@ -17,7 +17,7 @@ const themeReducer = (state=themeInitialState, action) => {
       return {...state,
           fetching: false,
           fetched: true,
-          themes: action.payload.data.others
+          themeList: action.payload.data.others
       };
     }
   }

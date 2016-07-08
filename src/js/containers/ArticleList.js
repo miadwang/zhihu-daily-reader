@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -13,7 +13,7 @@ class ArticleList extends Component {
           <div className="row">
             <ul className="col-lg-6">
               {
-                this.props.articles.map((article, key) => <Article key={key} article={article} actions={this.props.actions}/>
+                this.props.latest.articles.map((article, key) => <Article key={key} article={article} actions={this.props.actions}/>
                 )
               }
             </ul>
@@ -27,8 +27,21 @@ class ArticleList extends Component {
   }
 }
 
+Article.propTypes = {
+  latest: PropTypes.shape({
+    fetching: PropTypes.bool.isRequired,
+    fetched: PropTypes.bool.isRequired,
+    date: PropTypes.string.isRequired,
+    topArticles: PropTypes.arrayOf(PropTypes.object).isRequired,
+    articles: PropTypes.arrayOf(PropTypes.object).isRequired,
+    error: PropTypes.object
+  }),
+  children: PropTypes.node,
+  actions: PropTypes.object.isRequired
+};
+
 function mapStateToProps(state) {
-  return state.latest;
+  return {latest: state.latest};
 }
 
 function mapDispatchToProps(dispatch) {

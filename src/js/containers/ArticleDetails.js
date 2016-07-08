@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -13,13 +13,22 @@ class ArticleDetails extends Component {
 
   render() {
     return (
-      <div dangerouslySetInnerHTML={this.createMarkup(this.props.body)}/>
+      <div dangerouslySetInnerHTML={this.createMarkup(this.props.article.body)}/>
     );
   }
 }
 
+ArticleDetails.propTypes = {
+  article: PropTypes.shape({
+    fetching: PropTypes.bool.isRequired,
+    fetched: PropTypes.bool.isRequired,
+    error: PropTypes.object,
+    body: PropTypes.string.isRequired
+  }).isRequired
+};
+
 function mapStateToProps(state) {
-  return state.article;
+  return {article: state.article};
 }
 
 function mapDispatchToProps(dispatch) {

@@ -19,6 +19,9 @@ module.exports = {
       }
     ]
   },
+  devServer: {
+    host: '0.0.0.0'
+  },
   output: {
     path: __dirname + '/src/',
     filename: 'bundle.js'

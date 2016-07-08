@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 class SideBar extends Component {
   render() {
@@ -12,7 +12,7 @@ class SideBar extends Component {
         </li>
 
         {
-          this.props.themes.themes.map((theme, key) => {
+          this.props.theme.themeList.map((theme, key) => {
             return (
               <li className="sidebar-brand" key={key}>
                 <a href='#' onClick={this.props.actions.fetchThemeArticles}>
@@ -27,5 +27,15 @@ class SideBar extends Component {
     );
   }
 }
+
+SideBar.propTypes = {
+  theme: PropTypes.shape({
+    fetching: PropTypes.bool.isRequired,
+    fetched: PropTypes.bool.isRequired,
+    error: PropTypes.object,
+    themeList: PropTypes.array.isRequired
+  }).isRequired,
+  actions: PropTypes.object.isRequired
+};
 
 export default SideBar;

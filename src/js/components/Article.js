@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
 import actions from '../actions';
@@ -15,5 +15,14 @@ class Article extends Component {
     );
   }
 }
+
+Article.propTypes = {
+  key: PropTypes.number.isRequired,
+  article: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired
+  }).isRequired,
+  actions: PropTypes.object.isRequired
+};
 
 export default Article;
