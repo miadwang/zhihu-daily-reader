@@ -8,7 +8,8 @@ class ArticleItem extends Component {
 
     return (
       <li>
-        <Link to={'/article/' + this.props.articleItem.id} onClick={() => {this.props.actions.fetchArticleDetail(this.props.articleItem.id);}}>
+        <Link to={'/article/' + this.props.articleItem.id} onClick={() => {this.props.actions.fetchArticleDetail(this.props.articleItem.id);
+        document.getElementById('page-content-wrapper').classList.toggle('toggled');}}>
           {this.props.articleItem.title}
         </Link>
       </li>

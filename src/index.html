@@ -37,6 +37,25 @@
   <div id="app"></div>
   <!-- TODO: What's the purpose of below script? Is jQuery needed? -->
   <!-- <script src="js/bootstrap.min.js"></script> -->
+  <!-- jQuery -->
+  <script src="js/jquery.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+
   <script src="bundle.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+  $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      console.log('menu');
+      $("#wrapper").toggleClass("toggled");
+  });
+  $("#page-toggle").click(function(e) {
+      e.preventDefault();
+      $("#page-content-wrapper").toggleClass("toggled");
+  });
+  </script>
 </body>
 </html>
