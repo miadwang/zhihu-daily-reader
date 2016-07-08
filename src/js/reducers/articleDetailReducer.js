@@ -5,15 +5,15 @@ const articleInitialState = {
   body: ''
 };
 
-const latestReducer = (state=articleInitialState, action) => {
+const latestDetailReducer = (state=articleInitialState, action) => {
   switch(action.type) {
-    case 'FETCH_ARTICLE_PENDING': {
+    case 'FETCH_ARTICLE_DETAIL_PENDING': {
       return {...state, fetching: true};
     }
-    case 'FETCH_ARTICLE_REJECTED': {
+    case 'FETCH_ARTICLE_DETAIL_REJECTED': {
       return {...state, fetching: false, error: action.payload};
     }
-    case 'FETCH_ARTICLE_FULFILLED': {
+    case 'FETCH_ARTICLE_DETAIL_FULFILLED': {
       return {...state,
           fetching: false,
           fetched: true,
@@ -24,4 +24,4 @@ const latestReducer = (state=articleInitialState, action) => {
   return state;
 };
 
-export default latestReducer;
+export default latestDetailReducer;

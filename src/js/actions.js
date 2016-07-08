@@ -7,9 +7,9 @@ let actions = {
       payload: axios.get('http://zhihudaily.leanapp.cn/api/4/news/latest')
     };
   },
-  fetchArticle: function(id) {
+  fetchArticleDetail: function(id) {
     return {
-      type: 'FETCH_ARTICLE',
+      type: 'FETCH_ARTICLE_DETAIL',
       payload: axios.get('http://zhihudaily.leanapp.cn/api/4/news/' + id)
     };
   },
@@ -17,6 +17,12 @@ let actions = {
     return {
       type: 'FETCH_THEME_LIST',
       payload: axios.get('http://zhihudaily.leanapp.cn/api/4/themes')
+    };
+  },
+  fetchThemeArticleList: function(id) {
+    return {
+      type: 'FETCH_THEME_ARTICLE_LIST',
+      payload: axios.get('http://zhihudaily.leanapp.cn/api/4/theme/' + id)
     };
   }
 };

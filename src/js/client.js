@@ -8,7 +8,7 @@ import configureStore from './store';
 import actions from './actions';
 import App from './containers/App';
 import ArticleList from './containers/ArticleList';
-import ArticleDetails from './containers/ArticleDetails';
+import ArticleDetail from './containers/ArticleDetail';
 
 const initialState = {};
 
@@ -23,10 +23,10 @@ ReactDOM.render(
     <Router history={history}>
       <Route path='/' component={App}>
         <IndexRoute component={ArticleList}>
-          <Route path='/article/:id' component={ArticleDetails}/>
+          <Route path='/article/:id' component={ArticleDetail}/>
         </IndexRoute>
         <Route path='themes/:name' component={ArticleList}>
-          <Route path='/article/:id' component={ArticleDetails}/>
+          <Route path='/article/:id' component={ArticleDetail}/>
         </Route>
       </Route>
     </Router>

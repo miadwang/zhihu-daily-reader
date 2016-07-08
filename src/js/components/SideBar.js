@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
 class SideBar extends Component {
   render() {
@@ -6,18 +7,22 @@ class SideBar extends Component {
       <div id="sidebar-wrapper">
         <ul className="sidebar-nav">
         <li className="sidebar-brand">
-          <a href='#' onClick={this.props.actions.fetchThemeArticleList}>
+          <Link to='/' onClick={this.props.actions.fetchLatestArticleList}>
             首页
-          </a>
+          </Link>
         </li>
 
         {
           this.props.themeList.themes.map((theme, key) => {
             return (
               <li className="sidebar-brand" key={key}>
-                <a href='#' onClick={this.props.actions.fetchThemeArticleList}>
+                <Link to={'/themes/' + theme.id} onClick={
+                  () => {
+                    this.props.actions.fetchThemeArticleList(theme.id);
+                  }
+                }>
                   {theme.name}
-                </a>
+                </Link>
               </li>
             );
           })
@@ -33,7 +38,10 @@ SideBar.propTypes = {
     fetching: PropTypes.bool.isRequired,
     fetched: PropTypes.bool.isRequired,
     error: PropTypes.object,
-    themes: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+    themes: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.ifRequired
+    }).isRequired).isRequired
   }),
   actions: PropTypes.object.isRequired
 };

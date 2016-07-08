@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import actions from '../actions';
-import Article from '../components/Article';
+import ArticleItem from '../components/ArticleItem';
 
 class ArticleList extends Component {
   render() {
@@ -13,10 +13,14 @@ class ArticleList extends Component {
           <div className="row">
             <ul className="col-lg-12">
               {
-                this.props.latestArticleList.articles.map((article, key) => <Article key={key} article={article} actions={this.props.actions}/>
+                this.props.articleList.articleItems.map((articleItem, key) => <ArticleItem key={key} articleItem={articleItem} actions={this.props.actions}/>
                 )
               }
             </ul>
+          </div>
+        </div>
+        <div className="container-fluid">
+          <div className="row">
             <div className="col-lg-12">
             {this.props.children}
             </div>
@@ -27,13 +31,13 @@ class ArticleList extends Component {
   }
 }
 
-Article.propTypes = {
-  latestArticleList: PropTypes.shape({
+ArticleList.propTypes = {
+  articleList: PropTypes.shape({
     fetching: PropTypes.bool.isRequired,
     fetched: PropTypes.bool.isRequired,
     date: PropTypes.string.isRequired,
-    topArticles: PropTypes.arrayOf(PropTypes.object).isRequired,
-    articles: PropTypes.arrayOf(PropTypes.object).isRequired,
+    topArticleItems: PropTypes.arrayOf(PropTypes.object).isRequired,
+    articleItems: PropTypes.arrayOf(PropTypes.object).isRequired,
     error: PropTypes.object
   }),
   children: PropTypes.node,
@@ -41,7 +45,7 @@ Article.propTypes = {
 };
 
 function mapStateToProps(state) {
-  return {latestArticleList: state.latestArticleList};
+  return {articleList: state.articleList};
 }
 
 function mapDispatchToProps(dispatch) {

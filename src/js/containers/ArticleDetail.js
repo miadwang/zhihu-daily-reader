@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import actions from '../actions';
 
-class ArticleDetails extends Component {
+class ArticleDetail extends Component {
   createMarkup(html) {
     return {
       __html: html
@@ -13,13 +13,13 @@ class ArticleDetails extends Component {
 
   render() {
     return (
-      <div dangerouslySetInnerHTML={this.createMarkup(this.props.article.body)}/>
+      <div dangerouslySetInnerHTML={this.createMarkup(this.props.articleDetail.body)}/>
     );
   }
 }
 
-ArticleDetails.propTypes = {
-  article: PropTypes.shape({
+ArticleDetail.propTypes = {
+  articleDetail: PropTypes.shape({
     fetching: PropTypes.bool.isRequired,
     fetched: PropTypes.bool.isRequired,
     error: PropTypes.object,
@@ -28,7 +28,7 @@ ArticleDetails.propTypes = {
 };
 
 function mapStateToProps(state) {
-  return {article: state.article};
+  return {articleDetail: state.articleDetail};
 }
 
 function mapDispatchToProps(dispatch) {
@@ -37,4 +37,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ArticleDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleDetail);

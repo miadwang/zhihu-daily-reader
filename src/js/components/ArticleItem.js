@@ -3,26 +3,25 @@ import { Link } from 'react-router';
 
 import actions from '../actions';
 
-class Article extends Component {
+class ArticleItem extends Component {
   render() {
 
     return (
       <li>
-        <Link to={'/article/' + this.props.article.id} onClick={() => {this.props.actions.fetchArticle(this.props.article.id);}}>
-          {this.props.article.title}
+        <Link to={'/article/' + this.props.articleItem.id} onClick={() => {this.props.actions.fetchArticleDetail(this.props.articleItem.id);}}>
+          {this.props.articleItem.title}
         </Link>
       </li>
     );
   }
 }
 
-Article.propTypes = {
-  key: PropTypes.number.isRequired,
-  article: PropTypes.shape({
+ArticleItem.propTypes = {
+  articleItem: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired
   }).isRequired,
   actions: PropTypes.object.isRequired
 };
 
-export default Article;
+export default ArticleItem;
