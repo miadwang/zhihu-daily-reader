@@ -13,8 +13,8 @@ import ArticleDetails from './containers/ArticleDetails';
 const initialState = {};
 
 const store = configureStore(initialState);
-store.dispatch(actions.fetchLatest());
-store.dispatch(actions.fetchThemes());
+store.dispatch(actions.fetchLatestArticleList());
+store.dispatch(actions.fetchThemeList());
 
 const history = syncHistoryWithStore(hashHistory, store);
 

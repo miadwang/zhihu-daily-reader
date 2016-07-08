@@ -12,7 +12,7 @@ class App extends Component {
   render() {
     return (
       <div id="wrapper">
-        <SideBar theme={this.props.theme} actions={this.props.actions}/>
+        <SideBar themeList={this.props.themeList} actions={this.props.actions}/>
         <TitleBar/>
 
         {this.props.children}
@@ -22,18 +22,18 @@ class App extends Component {
 }
 
 App.propTypes = {
-  theme: PropTypes.shape({
+  themeList: PropTypes.shape({
     fetching: PropTypes.bool.isRequired,
     fetched: PropTypes.bool.isRequired,
     error: PropTypes.object,
-    themeList: PropTypes.array.isRequired
-  }).isRequired,
+    themes: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+  }),
   children: PropTypes.node.isRequired,
   actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
-  return {theme: state.theme};
+  return {themeList: state.themeList};
 }
 
 function mapDispatchToProps(dispatch) {

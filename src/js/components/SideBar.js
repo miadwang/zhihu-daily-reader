@@ -6,16 +6,16 @@ class SideBar extends Component {
       <div id="sidebar-wrapper">
         <ul className="sidebar-nav">
         <li className="sidebar-brand">
-          <a href='#' onClick={this.props.actions.fetchThemeArticles}>
+          <a href='#' onClick={this.props.actions.fetchThemeArticleList}>
             首页
           </a>
         </li>
 
         {
-          this.props.theme.themeList.map((theme, key) => {
+          this.props.themeList.themes.map((theme, key) => {
             return (
               <li className="sidebar-brand" key={key}>
-                <a href='#' onClick={this.props.actions.fetchThemeArticles}>
+                <a href='#' onClick={this.props.actions.fetchThemeArticleList}>
                   {theme.name}
                 </a>
               </li>
@@ -29,12 +29,12 @@ class SideBar extends Component {
 }
 
 SideBar.propTypes = {
-  theme: PropTypes.shape({
+  themeList: PropTypes.shape({
     fetching: PropTypes.bool.isRequired,
     fetched: PropTypes.bool.isRequired,
     error: PropTypes.object,
-    themeList: PropTypes.array.isRequired
-  }).isRequired,
+    themes: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+  }),
   actions: PropTypes.object.isRequired
 };
 

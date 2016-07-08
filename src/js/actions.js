@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 let actions = {
-  fetchLatest: function() {
+  fetchLatestArticleList: function() {
     return {
-      type: 'FETCH_LATEST',
+      type: 'FETCH_LATEST_ARTICLE_LIST',
       payload: axios.get('http://zhihudaily.leanapp.cn/api/4/news/latest')
     };
   },
@@ -13,9 +13,9 @@ let actions = {
       payload: axios.get('http://zhihudaily.leanapp.cn/api/4/news/' + id)
     };
   },
-  fetchThemes: function() {
+  fetchThemeList: function() {
     return {
-      type: 'FETCH_THEMES',
+      type: 'FETCH_THEME_LIST',
       payload: axios.get('http://zhihudaily.leanapp.cn/api/4/themes')
     };
   }

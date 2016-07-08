@@ -1,4 +1,4 @@
-const latestArticlesInitialState = {
+const latestArticleListInitialState = {
   fetching: false,
   fetched: false,
   date: '',
@@ -7,15 +7,15 @@ const latestArticlesInitialState = {
   error: null
 };
 
-const latestArticlesReducer = (state=latestArticlesInitialState, action) => {
+const latestArticleListReducer = (state=latestArticleListInitialState, action) => {
   switch(action.type) {
-    case 'FETCH_LATEST_PENDING': {
+    case 'FETCH_LATEST_ARTICLE_LIST_PENDING': {
       return {...state, fetching: true};
     }
-    case 'FETCH_LATEST_REJECTED': {
+    case 'FETCH_LATEST_ARTICLE_LIST_REJECTED': {
       return {...state, fetching: false, error: action.payload};
     }
-    case 'FETCH_LATEST_FULFILLED': {
+    case 'FETCH_LATEST_ARTICLE_LIST_FULFILLED': {
       return {...state,
           fetching: false,
           fetched: true,
@@ -28,4 +28,4 @@ const latestArticlesReducer = (state=latestArticlesInitialState, action) => {
   return state;
 };
 
-export default latestArticlesReducer;
+export default latestArticleListReducer;

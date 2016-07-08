@@ -1,27 +1,27 @@
-const themeInitialState = {
+const themeListInitialState = {
   fetching: false,
   fetched: false,
   error: null,
-  themeList: []
+  themes: []
 };
 
-const themeReducer = (state=themeInitialState, action) => {
+const themeListReducer = (state=themeListInitialState, action) => {
   switch(action.type) {
-    case 'FETCH_THEMES_PENDING': {
+    case 'FETCH_THEME_LIST_PENDING': {
       return {...state, fetching: true};
     }
-    case 'FETCH_THEMES_REJECTED': {
+    case 'FETCH_THEME_LIST_REJECTED': {
       return {...state, fetching: false, error: action.payload};
     }
-    case 'FETCH_THEMES_FULFILLED': {
+    case 'FETCH_THEME_LIST_FULFILLED': {
       return {...state,
           fetching: false,
           fetched: true,
-          themeList: action.payload.data.others
+          themes: action.payload.data.others
       };
     }
   }
   return state;
 };
 
-export default themeReducer;
+export default themeListReducer;

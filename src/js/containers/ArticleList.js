@@ -11,13 +11,13 @@ class ArticleList extends Component {
       <div id="page-content-wrapper">
         <div className="container-fluid">
           <div className="row">
-            <ul className="col-lg-6">
+            <ul className="col-lg-12">
               {
-                this.props.latest.articles.map((article, key) => <Article key={key} article={article} actions={this.props.actions}/>
+                this.props.latestArticleList.articles.map((article, key) => <Article key={key} article={article} actions={this.props.actions}/>
                 )
               }
             </ul>
-            <div className="col-lg-6">
+            <div className="col-lg-12">
             {this.props.children}
             </div>
           </div>
@@ -28,7 +28,7 @@ class ArticleList extends Component {
 }
 
 Article.propTypes = {
-  latest: PropTypes.shape({
+  latestArticleList: PropTypes.shape({
     fetching: PropTypes.bool.isRequired,
     fetched: PropTypes.bool.isRequired,
     date: PropTypes.string.isRequired,
@@ -41,7 +41,7 @@ Article.propTypes = {
 };
 
 function mapStateToProps(state) {
-  return {latest: state.latest};
+  return {latestArticleList: state.latestArticleList};
 }
 
 function mapDispatchToProps(dispatch) {

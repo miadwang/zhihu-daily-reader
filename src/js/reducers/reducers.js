@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import latestArticlesReducer from './latestArticlesReducer';
+import latestArticleListReducer from './latestArticleListReducer';
 import articleReducer from './articleReducer';
-import themeReducer from './themeReducer';
+import themeListReducer from './themeListReducer';
 
 const reducers = combineReducers({
-  latest: latestArticlesReducer,
+  latestArticleList: latestArticleListReducer,
   article: articleReducer,
-  theme: themeReducer,
+  themeList: themeListReducer,
   routing: routerReducer
 });
 
