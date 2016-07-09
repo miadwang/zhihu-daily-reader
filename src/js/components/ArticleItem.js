@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 class ArticleItem extends Component {
   render() {
     return (
-      <li className="articel-item">
+      <li className="article-item">
         <Link to={'/article/' + this.props.articleItem.id} onClick={() => {
           this.props.actions.fetchArticleDetail(this.props.articleItem.id);
           this.props.actions.hideSideBar();

@@ -31,7 +31,6 @@ class App extends Component {
 App.propTypes = {
   themeList: PropTypes.object,
   articleList: PropTypes.object,
-  articleDetail: PropTypes.object,
   layout: PropTypes.shape({
     sideBarIsActive: PropTypes.bool.isRequired
   }).isRequired,
@@ -43,7 +42,6 @@ function mapStateToProps(state) {
   return {
     themeList: state.themeList,
     articleList: state.articleList,
-    articleDetail: state.articleDetail,
     layout: state.layout
   };
 }

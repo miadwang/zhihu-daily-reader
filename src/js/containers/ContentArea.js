@@ -19,15 +19,13 @@ class ContentArea extends Component {
 
 ContentArea.propTypes = {
   articleList: PropTypes.object,
-  articleDetails: PropTypes.object,
   children: PropTypes.node,
   actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    articleList: state.articleList,
-    articleDetail: state.articleDetail
+    articleList: state.articleList
   };
 }
 
