@@ -8,23 +8,18 @@ import ArticleItem from '../components/ArticleItem';
 class ArticleList extends Component {
   render() {
     return (
-      <div className="col-xs-12 col-sm-9" data-spy="scroll" data-target="#sidebar-nav">
-        <div className="container-fluid">
-          <div className="row">
-            <ul className="col-lg-12">
-              {
-                this.props.articleList.articleItems.map((articleItem, key) => <ArticleItem key={key} articleItem={articleItem} actions={this.props.actions}/>
-                )
-              }
-            </ul>
-          </div>
-
-          <div className="row">
-            <div className="col-lg-12">
-            {this.props.children}
-            </div>
-          </div>
+      <div>
+        <div>
+          <ul>
+            {
+              this.props.articleList.articleItems.map((articleItem, key) => <ArticleItem key={key} articleItem={articleItem} actions={this.props.actions}/>
+              )
+            }
+          </ul>
         </div>
+
+        {this.props.children}
+
       </div>
     );
   }

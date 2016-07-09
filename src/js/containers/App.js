@@ -19,18 +19,16 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="page-container">
+      <div>
 
         <NavBar actions={this.props.actions}/>
 
-        <div className="container">
-          <div className={'row row-offcanvas row-offcanvas-left' + this.hideSideBar()}>
+        <div>
 
-            <SideBar themeList={this.props.themeList} actions={this.props.actions}/>
+          <SideBar themeList={this.props.themeList} actions={this.props.actions}/>
 
-            {this.props.children}
+          {this.props.children}
 
-          </div>
         </div>
       </div>
     );
