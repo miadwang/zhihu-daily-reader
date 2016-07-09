@@ -4,7 +4,10 @@ import { Link } from 'react-router';
 class SideBar extends Component {
   render() {
     return (
-      <div className="side-bar-wrapper">
+      <div className={'side-bar-wrapper' + (() => {
+        if (this.props.layout.sideBarIsActive) return ' side-bar-active';
+        else return '';
+      })()}>
         <ul className="theme-list">
           <li>
             <Link to="/" onClick={this.props.actions.fetchLatestArticleList}>
@@ -43,6 +46,9 @@ SideBar.propTypes = {
       name: PropTypes.string.ifRequired
     }).isRequired).isRequired
   }),
+  layout: PropTypes.shape({
+    sideBarIsActive: PropTypes.bool.isRequired
+  }).isRequired,
   actions: PropTypes.object.isRequired
 };
 

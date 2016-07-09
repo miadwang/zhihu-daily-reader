@@ -13,7 +13,10 @@ class ArticleDetail extends Component {
 
   render() {
     return (
-      <div className="article-detail-wrapper">
+      <div className={'article-detail-wrapper' + (() => {
+        if (this.props.layout.articleDetailIsActive) return ' article-detail-active';
+        else return '';
+      })()}>
         <button type="button" onClick={this.props.actions.toggleArticleDetail}>
           X
         </button>
@@ -30,11 +33,17 @@ ArticleDetail.propTypes = {
     fetched: PropTypes.bool.isRequired,
     error: PropTypes.object,
     body: PropTypes.string.isRequired
+  }).isRequired,
+  layout: PropTypes.shape({
+    articleDetailIsActive: PropTypes.bool.isRequired
   }).isRequired
 };
 
 function mapStateToProps(state) {
-  return {articleDetail: state.articleDetail};
+  return {
+    articleDetail: state.articleDetail,
+    layout: state.layout
+  };
 }
 
 function mapDispatchToProps(dispatch) {

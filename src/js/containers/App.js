@@ -7,20 +7,19 @@ import actions from '../actions';
 
 import TitleBar from '../components/TitleBar';
 import SideBar from '../components/SideBar';
-import ContentArea from './ContentArea';
+import Footer from '../components/Footer';
 
 class App extends Component {
   render() {
     return (
-      <div className={'page-wrapper' + (() => {
-        if (this.props.layout.sideBarIsActive) return ' side-bar-active';
-        else return '';
-      })()}>
+      <div className="page-wrapper">
         <TitleBar actions={this.props.actions}/>
 
-        <SideBar themeList={this.props.themeList} actions={this.props.actions}/>
+        <SideBar themeList={this.props.themeList} layout={this.props.layout} actions={this.props.actions}/>
 
         {this.props.children}
+
+        <Footer actions={this.props.actions}/>
       </div>
     );
   }
@@ -30,9 +29,7 @@ App.propTypes = {
   themeList: PropTypes.object,
   articleList: PropTypes.object,
   articleDetail: PropTypes.object,
-  layout: PropTypes.shape({
-    sideBarIsActive: PropTypes.bool.isRequired
-  }).isRequired,
+  layout: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   actions: PropTypes.object.isRequired
 };
