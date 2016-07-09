@@ -30,9 +30,19 @@ let actions = {
       type: 'TOGGLE_SIDE_BAR'
     };
   },
-  toggleArticleDetail: function() {
+  hideSideBar: function() {
     return {
-      type: 'TOGGLE_ARTICLE_DETAIL'
+      type: 'HIDE_SIDE_BAR'
+    };
+  },
+  showArticleDetail: function() {
+    return {
+      type: 'SHOW_ARTICLE_DETAIL'
+    };
+  },
+  hideArticleDetail: function() {
+    return {
+      type: 'HIDE_ARTICLE_DETAIL'
     };
   }
 };

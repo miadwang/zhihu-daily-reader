@@ -21,11 +21,13 @@ const history = syncHistoryWithStore(hashHistory, store);
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path='/' component={App}>
-        <IndexRoute component={ContentArea}>
+      <Route component={App}>
+        <Route path='/' component={ContentArea}>
+          <IndexRoute component={ArticleDetail}/>
           <Route path='/article/:id' component={ArticleDetail}/>
-        </IndexRoute>
+        </Route>
         <Route path='themes/:name' component={ContentArea}>
+          <IndexRoute component={ArticleDetail}/>
           <Route path='/article/:id' component={ArticleDetail}/>
         </Route>
       </Route>

@@ -5,7 +5,11 @@ class ArticleItem extends Component {
   render() {
     return (
       <li className="articel-item">
-        <Link to={'/article/' + this.props.articleItem.id} onClick={() => {this.props.actions.fetchArticleDetail(this.props.articleItem.id);}}>
+        <Link to={'/article/' + this.props.articleItem.id} onClick={() => {
+          this.props.actions.fetchArticleDetail(this.props.articleItem.id);
+          this.props.actions.hideSideBar();
+          this.props.actions.showArticleDetail();
+        }}>
           {this.props.articleItem.title}
         </Link>
       </li>

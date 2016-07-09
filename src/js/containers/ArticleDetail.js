@@ -6,7 +6,10 @@ import actions from '../actions';
 
 class ArticleDetail extends Component {
   createMarkup(html) {
-    return {
+    if (this.props.articleDetail.fetching) return {
+      __html: ''
+    };
+    else return {
       __html: html
     };
   }
@@ -17,7 +20,7 @@ class ArticleDetail extends Component {
         if (this.props.layout.articleDetailIsActive) return ' article-detail-active';
         else return '';
       })()}>
-        <button type="button" onClick={this.props.actions.toggleArticleDetail}>
+        <button type="button" onClick={this.props.actions.hideArticleDetail}>
           X
         </button>
 

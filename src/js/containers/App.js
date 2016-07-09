@@ -12,7 +12,10 @@ import Footer from '../components/Footer';
 class App extends Component {
   render() {
     return (
-      <div className="page-wrapper">
+      <div className={'page-wrapper' + (() => {
+        if (this.props.layout.sideBarIsActive) return ' side-bar-active';
+        else return '';
+      })()}>
         <TitleBar actions={this.props.actions}/>
 
         <SideBar themeList={this.props.themeList} layout={this.props.layout} actions={this.props.actions}/>
@@ -29,7 +32,9 @@ App.propTypes = {
   themeList: PropTypes.object,
   articleList: PropTypes.object,
   articleDetail: PropTypes.object,
-  layout: PropTypes.object.isRequired,
+  layout: PropTypes.shape({
+    sideBarIsActive: PropTypes.bool.isRequired
+  }).isRequired,
   children: PropTypes.node.isRequired,
   actions: PropTypes.object.isRequired
 };

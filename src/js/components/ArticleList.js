@@ -8,8 +8,10 @@ class ArticleList extends Component {
       <div className="article-list-wrapper">
         <ul className="article-list">
           {
-            this.props.articleList.articleItems.map((articleItem, key) => <ArticleItem key={key} articleItem={articleItem} actions={this.props.actions}/>
-            )
+            (() => {
+              if (this.props.articleList.fetching) return '';
+              else return this.props.articleList.articleItems.map((articleItem, key) => <ArticleItem key={key} articleItem={articleItem} actions={this.props.actions}/>);
+            })()
           }
         </ul>
       </div>

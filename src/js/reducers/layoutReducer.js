@@ -10,9 +10,19 @@ const layoutReducer = (state=layoutInitialState, action) => {
         sideBarIsActive: !state.sideBarIsActive
       };
     }
-    case 'TOGGLE_ARTICLE_DETAIL': {
+    case 'HIDE_SIDE_BAR': {
       return {...state,
-        articleDetailIsActive: !state.articleDetailIsActive
+        sideBarIsActive: false
+      };
+    }
+    case 'SHOW_ARTICLE_DETAIL': {
+      return {...state,
+        articleDetailIsActive: true
+      };
+    }
+    case 'HIDE_ARTICLE_DETAIL': {
+      return {...state,
+        articleDetailIsActive: false
       };
     }
   }

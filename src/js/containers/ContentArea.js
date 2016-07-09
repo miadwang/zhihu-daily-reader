@@ -20,7 +20,6 @@ class ContentArea extends Component {
 ContentArea.propTypes = {
   articleList: PropTypes.object,
   articleDetails: PropTypes.object,
-  layout: PropTypes.object.isRequired,
   children: PropTypes.node,
   actions: PropTypes.object.isRequired
 };
@@ -28,8 +27,7 @@ ContentArea.propTypes = {
 function mapStateToProps(state) {
   return {
     articleList: state.articleList,
-    articleDetail: state.articleDetail,
-    layout: state.layout,
+    articleDetail: state.articleDetail
   };
 }
 
