@@ -165,3 +165,6 @@ body,
 .footer-wrapper {
 
 }
+.article-detail-iframe {
+  position: absolute;
+}

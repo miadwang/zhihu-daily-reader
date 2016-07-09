@@ -1,17 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { findDOMNode } from 'react-dom';
 
 import actions from '../actions';
 
 class ArticleDetail extends Component {
-  createMarkup(html) {
-    if (this.props.articleDetail.fetching) return {
-      __html: ''
-    };
-    else return {
-      __html: html
-    };
+  componentWillReceiveProps(nextProps){
+    const iframe = findDOMNode(this.refs.iframe);
+    const doc = iframe.contentDocument;
+
+    if (nextProps.articleDetail.body.length > 0)  {
+      doc.body.innerHTML = nextProps.articleDetail.body.replace('<div class="img-place-holder"></div>', `<img src=${nextProps.articleDetail.img}>`);
+      doc.head.innerHTML = `<link rel="stylesheet" href="${nextProps.articleDetail.css[0]}">`;
+    }
   }
 
   render() {
@@ -24,7 +26,9 @@ class ArticleDetail extends Component {
           X
         </button>
 
-        <div className="article-detail" dangerouslySetInnerHTML={this.createMarkup(this.props.articleDetail.body)}/>
+        <div className="article-detail">
+          <iframe ref="iframe" frameBorder="0" scrolling="auto" width="100%" height="100%"/>
+        </div>
       </div>
     );
   }
@@ -35,7 +39,10 @@ ArticleDetail.propTypes = {
     fetching: PropTypes.bool.isRequired,
     fetched: PropTypes.bool.isRequired,
     error: PropTypes.object,
-    body: PropTypes.string.isRequired
+    body: PropTypes.string.isRequired,
+    css: PropTypes.array.isRequired,
+    img: PropTypes.string,
+    imgSource: PropTypes.string
   }).isRequired,
   layout: PropTypes.shape({
     articleDetailIsActive: PropTypes.bool.isRequired

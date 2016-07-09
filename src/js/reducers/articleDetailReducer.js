@@ -2,7 +2,10 @@ const articleInitialState = {
   fetching: false,
   fetched: false,
   error: null,
-  body: ''
+  body: '',
+  css: [],
+  img: '',
+  imgSource: ''
 };
 
 const latestDetailReducer = (state=articleInitialState, action) => {
@@ -17,7 +20,10 @@ const latestDetailReducer = (state=articleInitialState, action) => {
       return {...state,
           fetching: false,
           fetched: true,
-          body: action.payload.data.body
+          body: action.payload.data.body,
+          css: action.payload.data.css,
+          img: action.payload.data.image,
+          imgSource: action.payload.data.image_source
       };
     }
   }
