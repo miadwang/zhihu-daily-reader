@@ -4,10 +4,10 @@ import { Link } from 'react-router';
 class SideBar extends Component {
   render() {
     return (
-      <div>
-        <ul>
+      <div className="side-bar-wrapper">
+        <ul className="theme-list">
           <li>
-            <Link to='/' onClick={this.props.actions.fetchLatestArticleList}>
+            <Link to="/" onClick={this.props.actions.fetchLatestArticleList}>
               首页
             </Link>
           </li>
@@ -41,8 +41,7 @@ SideBar.propTypes = {
     themes: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.ifRequired
-    }).isRequired).isRequired,
-    isHide: PropTypes.bool.isRequired
+    }).isRequired).isRequired
   }),
   actions: PropTypes.object.isRequired
 };

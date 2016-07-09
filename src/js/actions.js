@@ -29,6 +29,11 @@ let actions = {
     return {
       type: 'TOGGLE_SIDE_BAR'
     };
+  },
+  toggleArticleDetail: function() {
+    return {
+      type: 'TOGGLE_ARTICLE_DETAIL'
+    };
   }
 };
 

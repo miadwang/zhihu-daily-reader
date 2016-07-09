@@ -13,7 +13,13 @@ class ArticleDetail extends Component {
 
   render() {
     return (
-      <div dangerouslySetInnerHTML={this.createMarkup(this.props.articleDetail.body)} className='content-page'/>
+      <div className="article-detail-wrapper">
+        <button type="button" onClick={this.props.actions.toggleArticleDetail}>
+          X
+        </button>
+
+        <div className="article-detail" dangerouslySetInnerHTML={this.createMarkup(this.props.articleDetail.body)}/>
+      </div>
     );
   }
 }

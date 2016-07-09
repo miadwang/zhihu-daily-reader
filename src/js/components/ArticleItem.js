@@ -1,14 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import actions from '../actions';
-
 class ArticleItem extends Component {
   render() {
     return (
-      <li>
-        <Link to={'/article/' + this.props.articleItem.id} onClick={() => {this.props.actions.fetchArticleDetail(this.props.articleItem.id);
-        document.getElementById('page-content-wrapper').classList.toggle('toggled');}}>
+      <li className="articel-item">
+        <Link to={'/article/' + this.props.articleItem.id} onClick={() => {this.props.actions.fetchArticleDetail(this.props.articleItem.id);}}>
           {this.props.articleItem.title}
         </Link>
       </li>

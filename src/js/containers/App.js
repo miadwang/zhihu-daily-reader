@@ -5,31 +5,22 @@ import { Route, IndexRoute } from 'react-router';
 
 import actions from '../actions';
 
-import NavBar from '../components/NavBar';
+import TitleBar from '../components/TitleBar';
 import SideBar from '../components/SideBar';
+import ContentArea from './ContentArea';
 
 class App extends Component {
-  constructor() {
-    super();
-    this.hideSideBar = this.hideSideBar.bind(this);
-  }
-  hideSideBar() {
-    if (this.props.themeList.isHide) return '';
-    else return ' active';
-  }
   render() {
     return (
-      <div>
+      <div className={'page-wrapper' + (() => {
+        if (this.props.layout.sideBarIsActive) return ' side-bar-active';
+        else return '';
+      })()}>
+        <TitleBar actions={this.props.actions}/>
 
-        <NavBar actions={this.props.actions}/>
+        <SideBar themeList={this.props.themeList} actions={this.props.actions}/>
 
-        <div>
-
-          <SideBar themeList={this.props.themeList} actions={this.props.actions}/>
-
-          {this.props.children}
-
-        </div>
+        {this.props.children}
       </div>
     );
   }
@@ -37,12 +28,22 @@ class App extends Component {
 
 App.propTypes = {
   themeList: PropTypes.object,
+  articleList: PropTypes.object,
+  articleDetail: PropTypes.object,
+  layout: PropTypes.shape({
+    sideBarIsActive: PropTypes.bool.isRequired
+  }).isRequired,
   children: PropTypes.node.isRequired,
   actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
-  return {themeList: state.themeList};
+  return {
+    themeList: state.themeList,
+    articleList: state.articleList,
+    articleDetail: state.articleDetail,
+    layout: state.layout
+  };
 }
 
 function mapDispatchToProps(dispatch) {

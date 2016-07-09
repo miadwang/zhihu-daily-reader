@@ -7,7 +7,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore from './store';
 import actions from './actions';
 import App from './containers/App';
-import ArticleList from './containers/ArticleList';
+import ContentArea from './containers/ContentArea';
 import ArticleDetail from './containers/ArticleDetail';
 
 const initialState = {};
@@ -22,10 +22,10 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route path='/' component={App}>
-        <IndexRoute component={ArticleList}>
+        <IndexRoute component={ContentArea}>
           <Route path='/article/:id' component={ArticleDetail}/>
         </IndexRoute>
-        <Route path='themes/:name' component={ArticleList}>
+        <Route path='themes/:name' component={ContentArea}>
           <Route path='/article/:id' component={ArticleDetail}/>
         </Route>
       </Route>
