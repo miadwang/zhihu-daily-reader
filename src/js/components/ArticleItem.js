@@ -5,7 +5,6 @@ import actions from '../actions';
 
 class ArticleItem extends Component {
   render() {
-
     return (
       <li>
         <Link to={'/article/' + this.props.articleItem.id} onClick={() => {this.props.actions.fetchArticleDetail(this.props.articleItem.id);

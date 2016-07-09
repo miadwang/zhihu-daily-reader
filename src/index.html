@@ -6,8 +6,7 @@
   <meta name="author" content="Mia Wang <mia.d.wang@gmail.com>">
   <meta name="description" content="A Zhihu Daily reader web app built with React and Redux">
 
-  <!-- TODO: shrink-to-fit=no? -->
-  <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!-- TODO: Verify below two capabilities -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -20,42 +19,21 @@
   <link rel="icon" sizes="192x192" type="image/png" href="img/favicon-192.png">
 
   <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/simple-sidebar.css" rel="stylesheet">
-  <link href="css/zhihu-article.css" rel="stylesheet">
 
   <!-- TODO: What's the purpose of below script? -->
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+  <!--[if lt IE 9]>
+  <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="css/styles.css" rel="stylesheet">
+  <!-- <link href="css/zhihu-article.css" rel="stylesheet"> -->
 
   <title>Zhihu Daily Reader</title>
 </head>
 <body>
   <div id="app"></div>
-  <!-- TODO: What's the purpose of below script? Is jQuery needed? -->
-  <!-- <script src="js/bootstrap.min.js"></script> -->
-  <!-- jQuery -->
+
   <script src="js/jquery.js"></script>
-
-  <!-- Bootstrap Core JavaScript -->
   <script src="js/bootstrap.min.js"></script>
-
   <script src="bundle.js"></script>
-
-  <!-- Menu Toggle Script -->
-  <script>
-  $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      console.log('menu');
-      $("#wrapper").toggleClass("toggled");
-  });
-  $("#page-toggle").click(function(e) {
-      e.preventDefault();
-      $("#page-content-wrapper").toggleClass("toggled");
-  });
-  </script>
 </body>
 </html>

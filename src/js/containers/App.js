@@ -5,29 +5,40 @@ import { Route, IndexRoute } from 'react-router';
 
 import actions from '../actions';
 
+import NavBar from '../components/NavBar';
 import SideBar from '../components/SideBar';
-import TitleBar from '../components/TitleBar';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.hideSideBar = this.hideSideBar.bind(this);
+  }
+  hideSideBar() {
+    if (this.props.themeList.isHide) return '';
+    else return ' active';
+  }
   render() {
     return (
-      <div id="wrapper">
-        <SideBar themeList={this.props.themeList} actions={this.props.actions}/>
-        <TitleBar/>
+      <div className="page-container">
 
-        {this.props.children}
+        <NavBar actions={this.props.actions}/>
+
+        <div className="container">
+          <div className={'row row-offcanvas row-offcanvas-left' + this.hideSideBar()}>
+
+            <SideBar themeList={this.props.themeList} actions={this.props.actions}/>
+
+            {this.props.children}
+
+          </div>
+        </div>
       </div>
     );
   }
 }
 
 App.propTypes = {
-  themeList: PropTypes.shape({
-    fetching: PropTypes.bool.isRequired,
-    fetched: PropTypes.bool.isRequired,
-    error: PropTypes.object,
-    themes: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
-  }),
+  themeList: PropTypes.object,
   children: PropTypes.node.isRequired,
   actions: PropTypes.object.isRequired
 };

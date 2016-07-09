@@ -2,7 +2,8 @@ const themeListInitialState = {
   fetching: false,
   fetched: false,
   error: null,
-  themes: []
+  themes: [],
+  isHide: true
 };
 
 const themeListReducer = (state=themeListInitialState, action) => {
@@ -18,6 +19,11 @@ const themeListReducer = (state=themeListInitialState, action) => {
           fetching: false,
           fetched: true,
           themes: action.payload.data.others
+      };
+    }
+    case 'TOGGLE_SIDE_BAR': {
+      return {...state,
+        isHide: !state.isHide
       };
     }
   }

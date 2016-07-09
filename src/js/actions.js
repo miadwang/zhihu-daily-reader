@@ -24,6 +24,11 @@ let actions = {
       type: 'FETCH_THEME_ARTICLE_LIST',
       payload: axios.get('http://zhihudaily.leanapp.cn/api/4/theme/' + id)
     };
+  },
+  toggleSideBar: function() {
+    return {
+      type: 'TOGGLE_SIDE_BAR'
+    };
   }
 };
 
