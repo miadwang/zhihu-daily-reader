@@ -187,7 +187,8 @@ body,
 .article-detail {
   height: calc(100% - 20px);
   margin-bottom: 20px;
-  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+	overflow-y: scroll;
 }
 
 .article-detail iframe {
