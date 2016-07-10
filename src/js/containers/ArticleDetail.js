@@ -57,13 +57,18 @@ class ArticleDetail extends Component {
   }
 
   render() {
+    var divStyle = {
+      overflow: 'auto',
+      WebkitOverflowScrolling: 'touch'
+    };
+    
     return (
       <div className={'article-detail-wrapper' + (this.props.layout.articleDetailIsActive ? ' article-detail-active' : '')}>
         <button type="button" onClick={this.props.actions.hideArticleDetail}>
         X
         </button>
 
-        <div className="article-detail">
+        <div className="article-detail" style={divStyle}>
           {
             this.props.articleDetail.fetching ? (
               <div className="loading-wrapper">
@@ -71,7 +76,7 @@ class ArticleDetail extends Component {
               </div>
             ) : null
           }
-          <iframe ref="iframe" frameBorder="0" scrolling="auto"/>
+          <iframe ref="iframe" frameBorder="0"/>
         </div>
       </div>
     );

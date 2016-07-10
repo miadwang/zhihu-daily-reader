@@ -169,6 +169,7 @@ body,
   transition: transform 0.5s ease;
   will-change: transform;
   background-color: white;
+  overflow: hidden;
 }
 
 .article-detail-active {
@@ -185,15 +186,15 @@ body,
 }
 
 .article-detail {
-  height: calc(100% - 20px);
+  height: 0;
   margin-bottom: 20px;
-  -webkit-overflow-scrolling: touch;
-	overflow-y: scroll;
+  position: relative;
+  padding-bottom: 155%
 }
 
 .article-detail iframe {
   position: absolute;
-  height: calc(100% - 20px);
+  height: 100%;
   width: 100%;
 }
 
