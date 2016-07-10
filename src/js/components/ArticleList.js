@@ -1,17 +1,28 @@
 import React, { Component, PropTypes } from 'react';
 
+import Loading from 'react-loading-animation';
 import ArticleItem from './ArticleItem';
+import TopArticleSlider from './TopArticleSlider';
 
 class ArticleList extends Component {
   render() {
     return (
       <div className="article-list-wrapper">
+        {
+          this.props.articleList.fetching ? (
+            <div className="loading-wrapper">
+              <Loading/>
+            </div>
+          ) : null
+        }
+
+        {
+          (this.props.articleList.theme === '今日热文') ? <TopArticleSlider topArticleItems={this.props.articleList.topArticleItems} actions={this.props.actions}/> : null
+        }
+
         <ul className="article-list">
           {
-            (() => {
-              if (this.props.articleList.fetching) return '';
-              else return this.props.articleList.articleItems.map((articleItem, key) => <ArticleItem key={key} articleItem={articleItem} actions={this.props.actions}/>);
-            })()
+            this.props.articleList.articleItems.map((articleItem, key) => <ArticleItem key={key} articleItem={articleItem} actions={this.props.actions}/>)
           }
         </ul>
       </div>
@@ -24,9 +35,10 @@ ArticleList.propTypes = {
     fetching: PropTypes.bool.isRequired,
     fetched: PropTypes.bool.isRequired,
     date: PropTypes.string.isRequired,
-    topArticleItems: PropTypes.arrayOf(PropTypes.object).isRequired,
+    error: PropTypes.object,
+    topArticleItems: PropTypes.arrayOf(PropTypes.object),
     articleItems: PropTypes.arrayOf(PropTypes.object).isRequired,
-    error: PropTypes.object
+    theme: PropTypes.string.isRequired
   }),
   children: PropTypes.node,
   actions: PropTypes.object.isRequired

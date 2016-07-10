@@ -5,13 +5,14 @@ const articleInitialState = {
   body: '',
   css: [],
   img: '',
-  imgSource: ''
+  imgSource: '',
+  title: ''
 };
 
 const latestDetailReducer = (state=articleInitialState, action) => {
   switch(action.type) {
     case 'FETCH_ARTICLE_DETAIL_PENDING': {
-      return {...state, fetching: true};
+      return {...state, fetching: true, fetched: false, error: null};
     }
     case 'FETCH_ARTICLE_DETAIL_REJECTED': {
       return {...state, fetching: false, error: action.payload};
@@ -23,7 +24,8 @@ const latestDetailReducer = (state=articleInitialState, action) => {
           body: action.payload.data.body,
           css: action.payload.data.css,
           img: action.payload.data.image,
-          imgSource: action.payload.data.image_source
+          imgSource: action.payload.data.image_source,
+          title: action.payload.data.title
       };
     }
   }
