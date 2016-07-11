@@ -6,15 +6,23 @@ import actions from '../actions';
 import Loading from 'react-loading-animation';
 import TopArticleSlider from '../components/TopArticleSlider';
 import ArticleList from '../components/ArticleList';
-import TitleBar from '../components/TitleBar';
 import Footer from '../components/Footer';
 
 class Main extends Component {
   render() {
-    return (
-      <div className="main">
-        <TitleBar actions={this.props.actions}/>
+    const divStyle = {
+      overflow: 'scroll',
+      WebkitOverflowScrolling: 'touch'
+    };
 
+    //Disable srolling (x & y) when sidebar is active. Otherwise the sidebar cannot scroll smoothly. Don't know why!!!TODO
+    if (this.props.layout.sideBarIsActive) {
+      divStyle.position = 'fixed';
+      divStyle.overflow = 'hidden';
+    }
+
+    return (
+      <div className="main" style={divStyle}>
         {
           this.props.articleList.fetching ? (
             <div className="loading-wrapper">
@@ -39,13 +47,17 @@ class Main extends Component {
 
 Main.propTypes = {
   articleList: PropTypes.object,
+  layout: PropTypes.shape({
+    sideBarIsActive: PropTypes.bool.isRequired
+  }).isRequired,
   children: PropTypes.node,
   actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    articleList: state.articleList
+    articleList: state.articleList,
+    layout: state.layout
   };
 }
 

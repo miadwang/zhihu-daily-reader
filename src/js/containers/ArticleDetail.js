@@ -58,16 +58,12 @@ class ArticleDetail extends Component {
 
   render() {
     const divStyle = {
-      overflow: 'auto',
+      overflow: 'scroll',
       WebkitOverflowScrolling: 'touch'
     };
 
     return (
       <div className={'article-detail-wrapper' + (this.props.layout.articleDetailIsActive ? ' article-detail-active' : '')}>
-        <button type="button" onClick={this.props.actions.hideArticleDetail}>
-        X
-        </button>
-
         <div className="article-detail" style={divStyle}>
           {
             this.props.articleDetail.fetching ? (

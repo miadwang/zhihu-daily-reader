@@ -5,21 +5,18 @@ import { Route, IndexRoute } from 'react-router';
 
 import actions from '../actions';
 import SideBar from '../components/SideBar';
+import TitleBar from '../components/TitleBar';
 
 class App extends Component {
   render() {
-    const divStyle = {
-      overflow: 'auto',
-      WebkitOverflowScrolling: 'touch'
-    };
-
     return (
-      <div className={'app-wrapper' + (this.props.layout.sideBarIsActive ? ' side-bar-active' : '')} style={divStyle}>
+      <div className={'app-wrapper' + (this.props.layout.sideBarIsActive ? ' side-bar-active' : '')}>
 
         <SideBar themeList={this.props.themeList} layout={this.props.layout} actions={this.props.actions}/>
 
-        {this.props.children}
+        <TitleBar actions={this.props.actions} layout={this.props.layout}/>
 
+        {this.props.children}
       </div>
     );
   }

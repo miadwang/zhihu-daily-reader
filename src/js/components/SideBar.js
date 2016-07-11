@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 class SideBar extends Component {
   render() {
     const divStyle = {
-      overflow: 'auto',
+      overflow: 'scroll',
       WebkitOverflowScrolling: 'touch'
     };
 
