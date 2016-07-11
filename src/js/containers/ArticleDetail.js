@@ -29,7 +29,7 @@ class ArticleDetail extends Component {
           margin-left: 20px;
           margin-right: 20px;
           color: white;
-          font-size: 20px;
+          font-size: 18px;
           font-weight: normal
         ">
           ${nextProps.articleDetail.title}
@@ -57,11 +57,11 @@ class ArticleDetail extends Component {
   }
 
   render() {
-    var divStyle = {
+    const divStyle = {
       overflow: 'auto',
       WebkitOverflowScrolling: 'touch'
     };
-    
+
     return (
       <div className={'article-detail-wrapper' + (this.props.layout.articleDetailIsActive ? ' article-detail-active' : '')}>
         <button type="button" onClick={this.props.actions.hideArticleDetail}>

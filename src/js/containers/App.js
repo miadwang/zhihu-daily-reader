@@ -4,25 +4,22 @@ import { bindActionCreators } from 'redux';
 import { Route, IndexRoute } from 'react-router';
 
 import actions from '../actions';
-
-import TitleBar from '../components/TitleBar';
 import SideBar from '../components/SideBar';
-import Footer from '../components/Footer';
 
 class App extends Component {
   render() {
+    const divStyle = {
+      overflow: 'auto',
+      WebkitOverflowScrolling: 'touch'
+    };
+
     return (
-      <div className={'page-wrapper' + (() => {
-        if (this.props.layout.sideBarIsActive) return ' side-bar-active';
-        else return '';
-      })()}>
-        <TitleBar actions={this.props.actions}/>
+      <div className={'app-wrapper' + (this.props.layout.sideBarIsActive ? ' side-bar-active' : '')} style={divStyle}>
 
         <SideBar themeList={this.props.themeList} layout={this.props.layout} actions={this.props.actions}/>
 
         {this.props.children}
 
-        <Footer actions={this.props.actions}/>
       </div>
     );
   }

@@ -3,8 +3,13 @@ import { Link } from 'react-router';
 
 class SideBar extends Component {
   render() {
+    const divStyle = {
+      overflow: 'scroll',
+      WebkitOverflowScrolling: 'touch'
+    };
+
     return (
-      <div className="side-bar-wrapper">
+      <div className="side-bar" style={divStyle}>
         <ul className="theme-list">
           <li>
             <Link to="/" onClick={
