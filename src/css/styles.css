@@ -2,14 +2,6 @@
   outline: solid 1px red
 }*/
 
-html {
-  overflow: hidden;
-}
-
-body {
-  overflow: auto;
-}
-
 html,
 body,
 #app {
@@ -19,63 +11,43 @@ body,
   height: 100%;
 }
 
-.page-wrapper {
-  background-color: white;
+.app-wrapper {
   font-size: 14px;
-  width: 100%;
+  width: 100vw;
+  height: 100%;
+  font-family: 'Open Sans', arial, sans-serif;
+  position: absolute;
+  left: 0;
+}
+/*app wrapper cannot move with side bar, it will hide side bar on iphone. So side bar, title bar and main need to move separately. It seems the app wrapper is the active area on iphone screen. Don't know why!!!TODO*/
+
+.side-bar {
+  width: 60vw;
   height: 100%;
   position: fixed;
-  font-family: 'Open Sans', arial, sans-serif;
-}
-
-.title-bar-wrapper {
-  height: 70px;
-  width: 100%;
-  border-bottom: solid 1px #ddd;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.title-bar-wrapper a {
-  display: inline-block;
-  font-size: 24px;
-  font-weight: bold;
-  color: rgb(51, 51, 51);
-  text-decoration: none;
-  margin-top: 24px;
-  margin-left: 20px;
-}
-
-.title-bar-wrapper button {
-  font-size: 20px;
-  float: right;
-  margin-top: 24px;
-  margin-right: 20px;
-}
-
-.side-bar-wrapper {
-  width: 250px;
-  height: calc(100% - 70px);
-  transform: translateX(-250px);
-  transition: transform 0.5s ease;
-  position: relative;
-  will-change: transform;
+  top: 0;
+  left: -60vw;
+  background-color: #222;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s ease;
   z-index: 1000;
-  overflow-y: scroll;
-  background-image: url('http://lorempixel.com/1024/760/nature/3/');
-  background-size: cover;
-  background-attachment: fixed;
+}
+/*translate3d is way faster than left on iphone. 100% percentage is relative to the div width not the parent div width!!!*/
+
+.side-bar h1 {
+  color: white;
+  font-size: 18px;
+  font-weight: normal;
+  margin: 20px 35px;
 }
 
-.side-bar-active .side-bar-wrapper {
-  transform: translateX(0);
+.side-bar-active .side-bar{
+  transform: translate3d(100%, 0, 0);
 }
 
 .theme-list {
   padding-left: 0;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: 20px 20px;
 }
 
 .theme-list li {
@@ -83,55 +55,102 @@ body,
 }
 
 .theme-list li a {
-  color: #fff;
-  font-size: 18px;
+  color: white;
+  font-size: 16px;
   line-height: 1.4;
   display: block;
-  padding: 9px 15px;
-  text-shadow: 1px 0 1px #888;
+  padding: 12px 15px;
   text-decoration: none;
 }
 
-.content-area-wrapper {
+.title-bar {
+  height: 50px;
   width: 100vw;
-  height: calc(100% - 70px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s ease;
+  z-index: 1;
+}
+/*title bar needs to be fixed. if put title bar in main and main has transfrom transition. title bar will no longer fix. It's an apple issue. Not certain!TODO*/
+
+.side-bar-active .title-bar{
+  transform: translate3d(60%, 0, 0);
+}
+
+.title-bar button {
+  display: block;
   position: absolute;
-  top: 70px;
-  vertical-align: top;
+  color: white;
+  font-size: 20px;
+  margin-top: 16px;
+  margin-left: 5px;
 }
 
-.article-list-wrapper {
+@keyframes appear {
+  0% {opacity: 0}
+  100% {opacity: 1}
+}
+
+.button-back {
+  animation: appear 0.3s ease;
+  animation-fill-mode: backwards;
+  animation-delay: 0.3s;
+}
+
+.title-bar a {
+  text-align: center;
+  clear: left;
+  display: block;
   width: 100%;
-  height: 100%;
-  transform: translateX(0);
-  transition: transform 0.5s ease;
-  vertical-align: top;
-  will-change: transform;
+  font-size: 16px;
+  color: white;
+  text-decoration: none;
+  margin-top: 21px;
 }
 
-.top-article-slider-wrapper {
-    width: 100%;
+.main{
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s ease;
 }
 
-.top-article-slider-wrapper iframe {
-  height: 53.2vw;
+.side-bar-active .main{
+  transform: translate3d(60%, 0, 0);
+}
+
+.top-article-slider {
+  width: 100%;
+  height: 200px;
+  transform: translate3d(0, 0, 0);
+}
+
+.top-article-slider a {
+  width: 100%;
+  height: 200px;
+  display: block;
+}
+
+.top-article-slider iframe {
+  height: 200px;
   width: 100%;
 }
 
 .article-list {
-  width: calc(100% - 40px);
-  height: calc(100% - 40px);
   padding-left: 0;
-  margin-left: 20px;
-  margin-right: 20px;
-  overflow-y: scroll;
-  position: absolute;
+  margin: 0 14px;
 }
 
 .article-item {
   list-style: none;
-  vertical-align: middle;
+  transform: translate3d(0, 0, 0);
 }
+/*translate3d can prevent items from disapearring in scrolling*/
 
 .article-item a {
   color: rgb(51, 51, 51);
@@ -156,47 +175,37 @@ body,
   height: 60px;
 }
 
-.side-bar-active .article-list-wrapper {
-  transform: translateX(250px);
-}
-
 .article-detail-wrapper {
-  width: 100vw;
-  height: calc(100% - 70px);
+  width: 100%;
+  height: 100%;
   position: fixed;
-  top: 70px;
+  top: 0;
+  left: 0;
   transform: translateX(100%);
-  transition: transform 0.5s ease;
-  will-change: transform;
-  background-color: white;
+  transition: transform 0.3s ease;
   overflow: hidden;
+  z-index: 500;
+  background: white;
 }
 
 .article-detail-active {
   transform: translateX(0);
 }
 
-.side-bar-active .article-detail-active {
-  transform: translateX(250px);
-}
-
-.article-detail-wrapper button {
-  position: fixed;
-  z-index: 700;
-}
-
+/*There is a good pen about how to fix iframe scrolling in iphone. It's not working very stably.*/
 .article-detail {
-  height: 0;
-  margin-bottom: 20px;
+  height: 100%;
   position: relative;
-  padding-bottom: 155%
 }
 
 .article-detail iframe {
   position: absolute;
+  top:0;
+  left:0;
   height: 100%;
   width: 100%;
 }
+/*iframe sometimes appear high, somtimes low. Cannot add buttons in the same parent! Don't know why. TODO*/
 
 .loading-wrapper {
   width: 100%;
@@ -208,11 +217,10 @@ body,
   box-sizing: border-box;
   padding-top: 40%;
   background-color: white;
-  will-change: transform;
   position: absolute;
-  z-index: 500;
+  z-index: 2000;
 }
 
-.footer-wrapper {
-
+.footer {
+  text-align: center;
 }

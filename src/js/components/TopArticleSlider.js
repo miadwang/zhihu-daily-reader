@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import {findDOMNode} from 'react-dom';
 
-import Loading from 'react-loading-animation';
 import Slider from 'react-slick';
 import Image from './Image';
 
@@ -19,7 +18,7 @@ class TopArticleSlider extends Component {
     };
 
     return (
-      <div className="top-article-slider-wrapper">
+      <div className="top-article-slider">
         <Slider {...settings}>
           {
             this.props.topArticleItems.map((topArticleItem, key) => (

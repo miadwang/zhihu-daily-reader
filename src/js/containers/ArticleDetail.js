@@ -29,7 +29,7 @@ class ArticleDetail extends Component {
           margin-left: 20px;
           margin-right: 20px;
           color: white;
-          font-size: 20px;
+          font-size: 18px;
           font-weight: normal
         ">
           ${nextProps.articleDetail.title}
@@ -52,22 +52,18 @@ class ArticleDetail extends Component {
       const doc = iframe.contentDocument;
       doc.body.innerHTML = nextProps.articleDetail.body.replace('<div class="img-place-holder">', html);
       doc.body.scrollTop = 0;
-      doc.head.innerHTML = `<link rel="stylesheet" href="${nextProps.articleDetail.css[0]}">`;
+      doc.head.innerHTML = `<link rel="stylesheet" href="${nextProps.articleDetail.css[0].replace('http', 'https')}">`;
     }
   }
 
   render() {
-    var divStyle = {
-      overflow: 'auto',
+    const divStyle = {
+      overflow: 'scroll',
       WebkitOverflowScrolling: 'touch'
     };
-    
+
     return (
       <div className={'article-detail-wrapper' + (this.props.layout.articleDetailIsActive ? ' article-detail-active' : '')}>
-        <button type="button" onClick={this.props.actions.hideArticleDetail}>
-        X
-        </button>
-
         <div className="article-detail" style={divStyle}>
           {
             this.props.articleDetail.fetching ? (
