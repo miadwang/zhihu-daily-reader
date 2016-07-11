@@ -2,21 +2,13 @@
   outline: solid 1px red
 }*/
 
-/*html {
-  overflow: hidden;
-}
-
-body {
-  overflow: auto;
-}*/
-
 html,
 body,
 #app {
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .app-wrapper {
@@ -25,7 +17,6 @@ body,
   height: 100%;
   font-family: 'Open Sans', arial, sans-serif;
   position: absolute;
-  overflow-y: scroll;
   left: 0;
   transition: left 0.5s ease;
 }
@@ -42,9 +33,16 @@ body,
   left: -60vw;
   background-image: url("/img/sidebar.jpg");
   background-size: cover;
-  background-attachment: fixed;
-  overflow-y: scroll;
+  background-position: center;
   transition: left 0.5s ease;
+  z-index: 1000;
+}
+
+.side-bar h1 {
+  color: white;
+  font-size: 18px;
+  font-weight: normal;
+  margin: 40px 35px;
 }
 
 .side-bar-active .side-bar{
@@ -53,8 +51,7 @@ body,
 
 .theme-list {
   padding-left: 0;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: 30px 20px;
 }
 
 .theme-list li {
@@ -62,12 +59,11 @@ body,
 }
 
 .theme-list li a {
-  color: black;
-  font-size: 18px;
+  color: white;
+  font-size: 16px;
   line-height: 1.4;
   display: block;
   padding: 12px 15px;
-  text-shadow: 1px 0 1px #888;
   text-decoration: none;
 }
 
@@ -166,7 +162,8 @@ body,
   transform: translateX(100%);
   transition: transform 0.5s ease;
   overflow: hidden;
-  z-index: 3;
+  z-index: 500;
+  background: white;
 }
 
 .article-detail-active {
