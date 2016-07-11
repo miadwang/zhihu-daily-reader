@@ -127,6 +127,7 @@ body,
 .top-article-slider {
   width: 100%;
   height: 200px;
+  transform: translate3d(0, 0, 0);
 }
 
 .top-article-slider a {
@@ -147,7 +148,9 @@ body,
 
 .article-item {
   list-style: none;
+  transform: translate3d(0, 0, 0);
 }
+/*translate3d can prevent items from disapearring in scrolling*/
 
 .article-item a {
   color: rgb(51, 51, 51);
@@ -189,6 +192,7 @@ body,
   transform: translateX(0);
 }
 
+/*There is a good pen about how to fix iframe scrolling in iphone. It's not working very stably.*/
 .article-detail {
   height: 100%;
   position: relative;

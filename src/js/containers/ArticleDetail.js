@@ -52,7 +52,7 @@ class ArticleDetail extends Component {
       const doc = iframe.contentDocument;
       doc.body.innerHTML = nextProps.articleDetail.body.replace('<div class="img-place-holder">', html);
       doc.body.scrollTop = 0;
-      doc.head.innerHTML = `<link rel="stylesheet" href="${nextProps.articleDetail.css[0]}">`;
+      doc.head.innerHTML = `<link rel="stylesheet" href="${nextProps.articleDetail.css[0].replace('http', 'https')}">`;
     }
   }
 
