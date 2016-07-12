@@ -125,18 +125,45 @@ body,
 }
 
 .top-article-slider {
-  width: 100%;
+  width: 100vw;
   height: 200px;
   transform: translate3d(0, 0, 0);
 }
 
-.top-article-slider a {
-  width: 100%;
+.image-gallery {
+  position: absolute;
+  left: -100vw;
   height: 200px;
-  display: block;
+  width: 300vw;
+  white-space: nowrap;
 }
 
-.top-article-slider iframe {
+.image-gallery a {
+  width: 100vw;
+  height: 200px;
+  display: block;
+  position: absolute;
+  left: 200vw;
+  opacity: 0;
+  transition: left 0.3s ease;
+}
+
+.image-gallery a.current-image {
+  left: 100vw;
+  opacity: 1;
+}
+
+.image-gallery a.pre-image {
+  left: 0;
+  opacity: 1;
+}
+
+.image-gallery a.next-image {
+  left: 200vw;
+  opacity: 1;
+}
+
+.image-gallery iframe {
   height: 200px;
   width: 100%;
 }

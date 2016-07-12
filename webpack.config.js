@@ -16,6 +16,11 @@ module.exports = {
           presets: ['react', 'es2015'],
           plugins: ['transform-object-rest-spread']
         }
+      },
+      {
+        test: /\.css$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'style!css?minimize'
       }
     ]
   },
