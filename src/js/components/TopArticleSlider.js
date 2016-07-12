@@ -16,19 +16,35 @@ class TopArticleSlider extends Component {
       prevIndex: 0,
       nextIndex: 2,
       timer: null,
-      animation: true
+      animation: true,
+      touchState: {
+        touchStartXPos: 0,
+        currentImageLeft: 0,
+        prevImageLeft: 0,
+        nextImageLeft: 0
+      }
     };
     this.swipeLeft = this.swipeLeft.bind(this);
     this.swipeRight = this.swipeRight.bind(this);
-    this.handelTouchStart = this.handelTouchStart.bind(this);
-    this.handelTouchEnd = this.handelTouchEnd.bind(this);
+    this.getActiveImages = this.getActiveImages.bind(this);
+    this.handleTouchStart = this.handleTouchStart.bind(this);
+    this.handleTouchEnd = this.handleTouchEnd.bind(this);
+    this.handleTouchMove = this.handleTouchMove.bind(this);
   }
 
   componentDidMount() {
     this.state.imageGallery = findDOMNode(this.refs.imageGallery);
     this.state.number = this.state.imageGallery.children.length;
     const self = this;
-    this.state.timer = setInterval(() => {self.swipeLeft();}, 5000);
+    this.state.timer = setInterval(() => {self.swipeLeft();}, 2000);
+  }
+
+  getActiveImages() {
+    return {
+      currentImage: this.state.imageGallery.children[this.state.currentIndex],
+      prevImage: this.state.imageGallery.children[this.state.prevIndex],
+      nextImage: this.state.imageGallery.children[this.state.nextIndex]
+    };
   }
 
   swipeLeft() {
@@ -47,54 +63,62 @@ class TopArticleSlider extends Component {
     });
   }
 
-  handelTouchStart(e) {
+  handleTouchStart(e) {
     e.preventDefault();
     clearInterval(this.state.timer);
 
-    //TODO: change to virtual DOM
-    const currentImage = document.getElementsByClassName('current-image')[0];
-    const computedCurrentImageStyle = window.getComputedStyle(currentImage);
-    currentImage.style.left = computedCurrentImageStyle.getPropertyValue('left');
-
-    const prevImage = document.getElementsByClassName('prev-image')[0];
-    const computedPrevImageStyle = window.getComputedStyle(prevImage);
-    prevImage.style.left = computedPrevImageStyle.getPropertyValue('left');
-
-    const nextImage = document.getElementsByClassName('next-image')[0];
-    const computedNextImageStyle = window.getComputedStyle(nextImage);
-    nextImage.style.left = computedNextImageStyle.getPropertyValue('left');
+    const activeImages = this.getActiveImages();
+    activeImages.currentImage.style.left = activeImages.currentImage.offsetLeft + 'px';
+    activeImages.prevImage.style.left = activeImages.prevImage.offsetLeft + 'px';
+    activeImages.nextImage.style.left = activeImages.nextImage.offsetLeft + 'px';
 
     this.setState({
-      animation: false
+      animation: false,
+      touchStartXPos: e.touches[0].pageX,
+      currentImageLeft: activeImages.currentImage.offsetLeft,
+      prevImageLeft: activeImages.prevImage.offsetLeft,
+      nextImageLeft: activeImages.nextImage.offsetLeft
     });
   }
 
-  handelTouchEnd() {
-    const currentImage = this.state.imageGallery.children[this.state.currentIndex];
-    currentImage.style.left = null;
+  handleTouchMove(e) {
+    const xPos = e.changedTouches[0].pageX;
+    const deltaX = xPos - this.state.touchStartXPos;
 
-    const prevImage = this.state.imageGallery.children[this.state.prevIndex];
-    prevImage.style.left = null;
+    const activeImages = this.getActiveImages();
+    activeImages.currentImage.style.left = (this.state.currentImageLeft + deltaX) + 'px';
+    activeImages.prevImage.style.left = (this.state.prevImageLeft + deltaX) + 'px';
+    activeImages.nextImage.style.left = (this.state.nextImageLeft + deltaX) + 'px';
+  }
 
-    const nextImage = this.state.imageGallery.children[this.state.nextIndex];
-    nextImage.style.left = null;
+  handleTouchEnd(e) {
+    const xPos = e.changedTouches[0].pageX;
+    const deltaX = xPos - this.state.touchStartXPos;
+    const activeImages = this.getActiveImages();
 
-    const self = this;
-    self.state.timer = setInterval(() => {self.swipeLeft();}, 5000);
+    activeImages.currentImage.style.left = null;
+    activeImages.prevImage.style.left = null;
+    activeImages.nextImage.style.left = null;
 
     this.setState({
       animation: true
     });
+
+    if (deltaX > 20) this.swipeRight();
+    if (deltaX < -20) this.swipeLeft();
+
+    const self = this;
+    self.state.timer = setInterval(() => {self.swipeLeft();}, 2000);
   }
 
   //TODO: add event listener to image/link/image gallery
   render() {
     return (
       <div className="top-article-slider">
-        <div ref="imageGallery" className="image-gallery" onClick={this.handelTouchStart}>
+        <div ref="imageGallery" className="image-gallery" onClick={this.handleTouchStart}>
           {
             this.props.topArticleItems.map((topArticleItem, index) => (
-              <Link key={index} onClick={this.handelTouchStart} className={
+              <Link key={index} onClick={this.handleTouchStart} className={
                 classNames({
                   'current-image': (this.state.currentIndex === index),
                   'prev-image': (this.state.prevIndex === index),
@@ -108,8 +132,7 @@ class TopArticleSlider extends Component {
           }
         </div>
         <div className="control">
-          <button type="button" onClick={this.handelTouchStart}>Touch Start</button>
-          <button type="button" onClick={this.handelTouchEnd}>Touch End</button>
+          <div className="touch" onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove} onTouchEnd={this.handleTouchEnd}>TouchTouchTouchTouchTouchTouch</div>
         </div>
       </div>
     );
