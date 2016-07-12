@@ -145,7 +145,6 @@ body,
   position: absolute;
   left: 200vw;
   opacity: 0;
-  transition: left 0.3s ease;
 }
 
 .image-gallery a.current-image {
@@ -153,7 +152,7 @@ body,
   opacity: 1;
 }
 
-.image-gallery a.pre-image {
+.image-gallery a.prev-image {
   left: 0;
   opacity: 1;
 }
@@ -163,9 +162,19 @@ body,
   opacity: 1;
 }
 
+.image-gallery a.animation {
+  transition: left 0.5s ease;
+}
+
 .image-gallery iframe {
   height: 200px;
   width: 100%;
+}
+
+.top-article-slider .control {
+  position: absolute;
+  z-index: 9999;
+  bottom: 0;
 }
 
 .article-list {
