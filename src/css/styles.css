@@ -1,15 +1,12 @@
 /** {
   outline: solid 1px red
 }*/
-
 html,
-body,
-#app {
+body {
   margin: 0;
   padding: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
-  background-color: white;
 }
 
 .app-wrapper {
@@ -18,17 +15,19 @@ body,
   height: 100%;
   font-family: 'Helvetica Neue', Helvetica, arial, sans-serif;
   position: absolute;
-  left: 0;
+  overflow-x: hidden;
+  background-color: white;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 }
-/*app wrapper cannot move with side bar, it will hide side bar on iphone. So side bar, title bar and main need to move separately. It seems the app wrapper is the active area on iphone screen. Don't know why!!!TODO*/
 
+
+
+/*Side Bar Styles*/
 .side-bar {
   width: 60vw;
   height: 100%;
   position: fixed;
-  top: 0;
   left: -60vw;
   background-color: #222;
   transform: translate3d(0, 0, 0);
@@ -42,6 +41,7 @@ body,
   font-size: 18px;
   font-weight: normal;
   margin: 20px 35px;
+  padding: 0;
 }
 
 .side-bar-active .side-bar{
@@ -49,7 +49,7 @@ body,
 }
 
 .theme-list {
-  padding-left: 0;
+  padding: 0;
   margin: 20px 20px;
 }
 
@@ -57,27 +57,28 @@ body,
   list-style: none;
 }
 
-.theme-list li a {
+.theme-list a {
   color: white;
   font-size: 16px;
   line-height: 1.4;
   display: block;
   padding: 12px 15px;
+  margin: 0;
   text-decoration: none;
 }
 
+
+
+/*Title Bar Styles*/
 .title-bar {
   height: 50px;
   width: 100vw;
   position: fixed;
-  top: 0;
-  left: 0;
   background-color: transparent;
   transform: translate3d(0, 0, 0);
   transition: transform 0.3s ease;
   z-index: 500;
 }
-/*title bar needs to be fixed. if put title bar in main and main has transfrom transition. title bar will no longer fix. It's an apple issue. Not certain!TODO*/
 
 .side-bar-active .title-bar{
   transform: translate3d(60%, 0, 0);
@@ -92,17 +93,6 @@ body,
   margin-left: 5px;
 }
 
-@keyframes appear {
-  0% {opacity: 0}
-  100% {opacity: 1}
-}
-
-.button-back {
-  animation: appear 0.3s ease;
-  animation-fill-mode: backwards;
-  animation-delay: 0.3s;
-}
-
 .title-bar a {
   text-align: center;
   clear: left;
@@ -112,38 +102,63 @@ body,
   color: white;
   text-decoration: none;
   margin-top: 21px;
+  padding: 0;
 }
 
-.main{
+
+
+/*Main Styles*/
+.main {
   width: 100vw;
   position: absolute;
-  top: 0;
-  left: 0;
+  height: 100%;
   transition: transform 0.3s ease;
-  overflow-x: hidden;
+}
+
+.frozer {
+  width: 100vw;
+  height: 100%;
+  position: fixed;
+  background: transparent;
+  z-index: 5000;
 }
 
 .side-bar-active .main{
   transform: translate3d(60%, 0, 0);
 }
+/*no transform of main when side bar not active because it will prevent child divs from fixing!*/
+
+
+
+/*Article List Styles*/
+.article-list-wrapper {
+  position: absolute;
+  height: 100%;
+  width: 100vw;
+}
+
+.side-bar-active .article-list-wrapper {
+  position: fixed;
+}
+/*Position fixed prevent the list from y scrolling. overflow hidden of app wrapper pervent the list from x scrolling*/
 
 .top-article-slider {
   width: 100vw;
-  height: 200px;
+  height: 55vw;
   transform: translate3d(0, 0, 0);
 }
 
 .image-gallery {
   position: absolute;
   left: -100vw;
-  height: 200px;
+  height: 55vw;
   width: 300vw;
   white-space: nowrap;
 }
 
 .image-gallery a {
   width: 100vw;
-  height: 200px;
+  height: 55vw;
   display: block;
   position: absolute;
   left: 200vw;
@@ -174,7 +189,7 @@ body,
 }
 
 .image-gallery .image {
-  height: 200px;
+  height: 55vw;
   width: 100%;
   background-position: center;
   background-size: cover;
@@ -183,13 +198,11 @@ body,
 }
 
 .image-gallery h1 {
-  margin: 0;
+  margin: 0 20px;
+  padding: 0;
   position: absolute;
   bottom:  18px;
-  margin-left: 20px;
-  margin-right: 20px;
   color: white;
-  font-family: 'Open Sans', arial, sans-serif;
   font-size: 18px;
   font-weight: normal;
   white-space: pre-wrap;
@@ -197,12 +210,35 @@ body,
 
 .top-article-slider .control {
   position: absolute;
-  z-index: 9999;
+  z-index: 10;
   bottom: 0;
+  left: calc(50vw - 50px);
+  width: 150px;
+  text-align: left;
+  display: inline-block;
+}
+
+.control ul {
+  padding: 0;
+  margin: 0;
+}
+
+.control li {
+  list-style: none;
+  color: white;
+  opacity: 0.3;
+  display: inline-block;
+  margin-left: 8px;
+  margin-bottom: 5px;
+  text-decoration: none;
+}
+
+li.current-index {
+  opacity: 1;
 }
 
 .article-list {
-  padding-left: 0;
+  padding: 0;
   margin: 0 14px;
 }
 
@@ -217,8 +253,8 @@ body,
   font-size: 16px;
   line-height: 1.4;
   display: block;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px 0;
+  margin: 0;
   text-decoration: none;
   border-bottom: solid 1px #ddd;
   overflow: auto;
@@ -226,40 +262,39 @@ body,
 
 .article-item span {
   float: left;
-  width: calc(100% - 90px);
+  width: 70vw;
 }
 
 .article-item .image {
   float: right;
-  width: 80px;
-  height: 60px;
+  width: 20vw;
+  height: 16vw;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
+
+
+/*Article Detail Styles*/
 .article-detail-wrapper {
-  width: 100%;
+  width: 100vw;
   height: 100%;
   position: fixed;
-  top: 0;
-  left: 0;
-  transform: translateX(100%);
+  left: 100vw;
+  transform: translate3d(0, 0, 0);
   transition: transform 0.3s ease;
-  overflow: scroll;
   z-index: 100;
   background: white;
 }
 
 .article-detail-active {
-  transform: translateX(0);
+  transform: translate3d(-100%, 0, 0);
 }
 
 .article-detail .image {
-  top:0;
-  left:0;
-  height: 200px;
-  width: 100%;
+  height: 55vw;
+  width: 100vw;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -268,11 +303,10 @@ body,
 }
 
 .article-detail .image h1 {
-  margin: 0;
   position: absolute;
   bottom:  18px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: 0 20px;
+  padding: 0;
   color: white;
   font-size: 18px;
   font-weight: normal;
@@ -292,16 +326,15 @@ body,
 
 .inner-html {
   position: relative;
-  top:0;
-  left:0;
-  width: 100%;
+  width: 100vw;
 }
 
+
+
+/*Other Styles*/
 .loading-wrapper {
-  width: 100%;
+  width: 100vw;
   height: 100%;
-  top: 0;
-  left: 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;

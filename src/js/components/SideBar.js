@@ -1,7 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import {findDOMNode} from 'react-dom';
 
 class SideBar extends Component {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.layout.sideBarIsActive) {
+      const sidebar = findDOMNode(this.refs.sidebar);
+      sidebar.scrollTop = 0;
+    }
+  }
+
   render() {
     const divStyle = {
       overflowY: 'scroll',
@@ -10,7 +18,8 @@ class SideBar extends Component {
     };
 
     return (
-      <div className="side-bar" style={divStyle}>
+
+      <div ref="sidebar" className="side-bar" style={divStyle}>
         <h1>
           知乎日报阅读器
         </h1>
@@ -60,6 +69,9 @@ SideBar.propTypes = {
       name: PropTypes.string.ifRequired
     }).isRequired).isRequired
   }),
+  layout: PropTypes.shape({
+    sideBarIsActive: PropTypes.bool.isRequired
+  }).isRequired,
   actions: PropTypes.object.isRequired
 };
 
