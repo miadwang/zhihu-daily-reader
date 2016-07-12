@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import Image from './Image';
-
 class ArticleItem extends Component {
   render() {
+    const divStyle = {
+      backgroundImage: `url(${this.props.articleItem.images[0].replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://zhihudaily.leanapp.cn/pic$1')})`
+    };
+
     return (
       <li className="article-item">
         <Link to={'/article/' + this.props.articleItem.id} onClick={() => {
@@ -17,7 +19,7 @@ class ArticleItem extends Component {
           </span>
 
           {
-            this.props.articleItem.images ? <Image src={this.props.articleItem.images[0]}/> : null
+            this.props.articleItem.images ? <div className="image" style={divStyle}/> : null
           }
 
         </Link>

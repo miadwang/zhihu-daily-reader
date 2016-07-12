@@ -6,54 +6,13 @@ import { findDOMNode } from 'react-dom';
 import actions from '../actions';
 import Loading from 'react-loading-animation';
 
+import '../../css/zhihu.css';
+
 class ArticleDetail extends Component {
-  componentWillReceiveProps(nextProps) {
-    if (this.props.articleDetail.fetching && nextProps.articleDetail.fetched)  {
-      let html = `<div class="img-place-holder" style="
-        background-image: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img});
-        background-image: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(100%, rgba(0,0,0,0.5))),url(${nextProps.articleDetail.img});
-        background-image: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img});
-        background-image: -o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img});
-        background-image: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img});
-        background-image: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img});
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        position: relative
-      ">
-
-        <h1 style="
-          margin: 0;
-          position: absolute;
-          bottom:  18px;
-          margin-left: 20px;
-          margin-right: 20px;
-          color: white;
-          font-size: 18px;
-          font-weight: normal
-        ">
-          ${nextProps.articleDetail.title}
-        </h1>
-
-        <h2 style="
-          margin: 0 20px;
-          position: absolute;
-          bottom: 8px;
-          right: 0;
-          font-size: 9px;
-          text-align: right;
-          color: white;
-          font-weight: 200
-        ">
-          图片：${nextProps.articleDetail.imgSource}
-        </h2>`;
-
-      const iframe = findDOMNode(this.refs.iframe);
-      const doc = iframe.contentDocument;
-      doc.body.innerHTML = nextProps.articleDetail.body.replace('<div class="img-place-holder">', html);
-      doc.body.scrollTop = 0;
-      doc.head.innerHTML = `<link rel="stylesheet" href="${nextProps.articleDetail.css[0].replace('http', 'https')}">`;
-    }
+  createMarkup(html) {
+    return {
+      __html: html
+    };
   }
 
   render() {
@@ -64,8 +23,8 @@ class ArticleDetail extends Component {
     };
 
     return (
-      <div className={'article-detail-wrapper' + (this.props.layout.articleDetailIsActive ? ' article-detail-active' : '')}>
-        <div className="article-detail" style={divStyle}>
+      <div style={divStyle} className={'article-detail-wrapper' + (this.props.layout.articleDetailIsActive ? ' article-detail-active' : '')} >
+        <div className="article-detail">
           {
             this.props.articleDetail.fetching ? (
               <div className="loading-wrapper">
@@ -73,7 +32,20 @@ class ArticleDetail extends Component {
               </div>
             ) : null
           }
-          <iframe ref="iframe" frameBorder="0"/>
+
+          <div className="image" style={{
+            // backgroundImage: `-moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img})`,
+            // backgroundImage: `-webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(100%, rgba(0,0,0,0.5))),url(${nextProps.articleDetail.img})`,
+            // backgroundImage: `-webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img})`,
+            // backgroundImage: `-o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img})`,
+            // backgroundImage: `-ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img})`,
+            backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${this.props.articleDetail.img.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://zhihudaily.leanapp.cn/pic$1')})`
+          }}>
+            <h1>{this.props.articleDetail.title}</h1>
+            <h2>图片：{this.props.articleDetail.imgSource}</h2>
+          </div>
+
+          <div className="inner-html" ref="innerHtml" dangerouslySetInnerHTML={this.createMarkup(this.props.articleDetail.body.replace(/https?:\/\/pic(\d)\.zhimg\.com/g, 'https://zhihudaily.leanapp.cn/pic$1'))}/>
         </div>
       </div>
     );
