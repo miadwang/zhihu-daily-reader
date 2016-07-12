@@ -58,7 +58,8 @@ class ArticleDetail extends Component {
 
   render() {
     const divStyle = {
-      overflow: 'scroll',
+      overflowY: 'scroll',
+      overflowX: 'hidden',
       WebkitOverflowScrolling: 'touch'
     };
 

@@ -11,7 +11,8 @@ import Footer from '../components/Footer';
 class Main extends Component {
   render() {
     const divStyle = {
-      overflow: 'scroll',
+      overflowY: 'scroll',
+      overflowX: 'hidden',
       WebkitOverflowScrolling: 'touch'
     };
 

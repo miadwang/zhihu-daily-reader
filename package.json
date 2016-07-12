@@ -25,13 +25,14 @@
   "homepage": "https://github.com/miadwang/zhihu-daily-reader#readme",
   "dependencies": {
     "axios": "^0.12.0",
+    "classnames": "^2.2.5",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
     "react-loading-animation": "^1.0.1",
     "react-redux": "^4.4.5",
     "react-router": "^2.5.2",
     "react-router-redux": "^4.0.5",
-    "react-slick": "^0.12.2",
+    "react-swiper": "^0.1.5",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
     "redux-promise-middleware": "^3.3.2"
@@ -42,8 +43,10 @@
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.11.1",
+    "css-loader": "^0.23.1",
     "eslint": "^3.0.1",
     "eslint-plugin-react": "^5.2.2",
+    "style-loader": "^0.13.1",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   }
