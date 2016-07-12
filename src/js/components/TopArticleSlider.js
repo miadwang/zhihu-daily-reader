@@ -2,9 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
-import Swiper from 'react-swiper';
-
-import Image from './Image';
 
 class TopArticleSlider extends Component {
   constructor() {
@@ -111,28 +108,45 @@ class TopArticleSlider extends Component {
     self.state.timer = setInterval(() => {self.swipeLeft();}, 2000);
   }
 
-  //TODO: add event listener to image/link/image gallery.
   render() {
     return (
       <div className="top-article-slider">
         <div ref="imageGallery" className="image-gallery" onClick={this.handleTouchStart}>
           {
             this.props.topArticleItems.map((topArticleItem, index) => (
-              <Link key={index} onClick={this.handleTouchStart} className={
-                classNames({
-                  'current-image': (this.state.currentIndex === index),
-                  'prev-image': (this.state.prevIndex === index),
-                  'next-image': (this.state.nextIndex === index),
-                  'animation': (this.state.animation === true)
-                })
-              } to={`/article/${topArticleItem.id}`}>
-                <Image src={topArticleItem.image} title={topArticleItem.title}/>
+              <Link key={index}
+                onClick={() => {
+                  this.props.actions.fetchArticleDetail(topArticleItem.id);
+                  this.props.actions.hideSideBar();
+                  this.props.actions.showArticleDetail();
+                }}
+                onTouchStart={this.handleTouchStart}
+                onTouchMove={this.handleTouchMove}
+                onTouchEnd={this.handleTouchEnd}
+                className={
+                  classNames({
+                    'current-image': (this.state.currentIndex === index),
+                    'prev-image': (this.state.prevIndex === index),
+                    'next-image': (this.state.nextIndex === index),
+                    'animation': (this.state.animation === true)
+                  })
+                }
+                to={`/article/${topArticleItem.id}`}>
+                  <div className="image" style={{
+                    // backgroundImage: `-moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
+                    // backgroundImage: `-webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(100%, rgba(0,0,0,0.5))),url(${topArticleItem.image})`,
+                    // backgroundImage: `-webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
+                    // backgroundImage: `-o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
+                    // backgroundImage: `-ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
+                    backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://zhihudaily.leanapp.cn/pic$1')})`
+                  }}/>
+                <h1>{topArticleItem.title}</h1>
               </Link>
             ))
           }
         </div>
         <div className="control">
-          <div className="touch" onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove} onTouchEnd={this.handleTouchEnd}>TouchTouchTouchTouchTouchTouch</div>
+
         </div>
       </div>
     );
