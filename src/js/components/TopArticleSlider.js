@@ -111,7 +111,7 @@ class TopArticleSlider extends Component {
     self.state.timer = setInterval(() => {self.swipeLeft();}, 2000);
   }
 
-  //TODO: add event listener to image/link/image gallery
+  //TODO: add event listener to image/link/image gallery.
   render() {
     return (
       <div className="top-article-slider">

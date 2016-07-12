@@ -145,24 +145,28 @@ body,
   position: absolute;
   left: 200vw;
   opacity: 0;
+  z-index: 0;
 }
 
-.image-gallery a.current-image {
+.image-gallery .current-image {
   left: 100vw;
   opacity: 1;
+  z-index: 3
 }
 
-.image-gallery a.prev-image {
+.image-gallery .prev-image {
   left: 0;
   opacity: 1;
+  z-index: 1;
 }
 
-.image-gallery a.next-image {
+.image-gallery .next-image {
   left: 200vw;
   opacity: 1;
+  z-index: 2;
 }
 
-.image-gallery a.animation {
+.image-gallery .animation {
   transition: left 0.5s ease;
 }
 
