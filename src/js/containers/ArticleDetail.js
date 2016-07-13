@@ -9,28 +9,11 @@ import Loading from 'react-loading-animation';
 import '../../css/zhihu.css';
 
 class ArticleDetail extends Component {
-  // constructor() {
-  //   super();
-  //   this.preventMainScroll = this.preventMainScroll.bind(this);
-  // }
-  //
-  componentDidMount() {
-    const innerHtml = findDOMNode(this.refs.innerHtml);
-
-    innerHtml.addEventListener('scroll', this.preventMainScroll);
-    innerHtml.addEventListener('touchstart', this.preventMainScroll);
-    innerHtml.addEventListener('wheel', this.preventMainScroll);
-  }
   componentWillReceiveProps(nextProps) {
     if (nextProps.layout.articleDetailIsActive) {
       const detail = findDOMNode(this.refs.detail);
       detail.scrollTop = 0;
     }
-  }
-  //
-  preventMainScroll(e) {
-    console.log('inner', e.type)
-    e.stopPropagation();
   }
 
   createMarkup(html) {
@@ -64,7 +47,8 @@ class ArticleDetail extends Component {
             // backgroundImage: `-webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img})`,
             // backgroundImage: `-o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img})`,
             // backgroundImage: `-ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img})`,
-            backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${this.props.articleDetail.img.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/pic$1')})`
+            backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${
+              this.props.articleDetail.img ? this.props.articleDetail.img.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/pic$1') : ''})`
           }}>
             <h1>{this.props.articleDetail.title}</h1>
             <h2>图片：{this.props.articleDetail.imgSource}</h2>

@@ -36,6 +36,11 @@ class TopArticleSlider extends Component {
     this.state.timer = setInterval(() => {self.swipeLeft();}, 2000);
   }
 
+
+  componentWillUnmount() {
+    clearInterval(this.state.timer);
+  }
+
   getActiveImages() {
     return {
       currentImage: this.state.imageGallery.children[this.state.currentIndex],

@@ -3,10 +3,6 @@ import { Link } from 'react-router';
 
 class ArticleItem extends Component {
   render() {
-    const divStyle = {
-      backgroundImage: `url(${this.props.articleItem.images[0].replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/pic$1')})`
-    };
-
     return (
       <li className="article-item">
         <Link to={'/article/' + this.props.articleItem.id} onClick={() => {
@@ -19,7 +15,9 @@ class ArticleItem extends Component {
           </span>
 
           {
-            this.props.articleItem.images ? <div className="image" style={divStyle}/> : null
+            this.props.articleItem.images ? <div className="image" style={{
+              backgroundImage: `url(${this.props.articleItem.images[0].replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/pic$1')})`
+            }}/> : null
           }
 
         </Link>
