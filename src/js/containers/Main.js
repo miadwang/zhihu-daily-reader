@@ -11,7 +11,7 @@ import { findDOMNode } from 'react-dom';
 
 class Main extends Component {
   componentWillReceiveProps(nextProps) {
-    if (this.props.layout.articleDetailIsActive && nextProps.layout.articleDetailIsActive) {
+    if (!this.props.layout.articleDetailIsActive && !nextProps.layout.articleDetailIsActive) {
       const main = findDOMNode(this.refs.main);
       main.scrollTop = 0;
     }
@@ -34,7 +34,7 @@ class Main extends Component {
           }
 
           {
-            this.props.articleList.fetched ? (
+            this.props.articleList.fetching ? (
               <div className="loading-wrapper">
                 <Loading/>
               </div>
