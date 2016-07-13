@@ -36,6 +36,11 @@ class TopArticleSlider extends Component {
     this.state.timer = setInterval(() => {self.swipeLeft();}, 2000);
   }
 
+
+  componentWillUnmount() {
+    clearInterval(this.state.timer);
+  }
+
   getActiveImages() {
     return {
       currentImage: this.state.imageGallery.children[this.state.currentIndex],
@@ -138,7 +143,7 @@ class TopArticleSlider extends Component {
                     // backgroundImage: `-webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
                     // backgroundImage: `-o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
                     // backgroundImage: `-ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
-                    backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://zhihudaily.leanapp.cn/pic$1')})`
+                    backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/pic$1')})`
                   }}/>
                 <h1>{topArticleItem.title}</h1>
               </Link>
@@ -146,7 +151,16 @@ class TopArticleSlider extends Component {
           }
         </div>
         <div className="control">
-
+          <ul>
+            {
+              this.props.topArticleItems.map((topArticleItem, index) =>
+                <li key={index} className={
+                  classNames({
+                    'current-index': (this.state.currentIndex === index)
+                  })
+                }>&#9679;</li>)
+            }
+          </ul>
         </div>
       </div>
     );

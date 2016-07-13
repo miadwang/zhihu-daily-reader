@@ -359,8 +359,27 @@ ol {
   margin-right: 0;
 }
 .headline .img-place-holder {
-  height: 200px;
+  height: 55vw;
 }
+
+@media screen and (min-width: 650px) {
+  .headline .img-place-holder {
+    height: 38vw;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .headline .img-place-holder {
+    height: 304px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .headline .img-place-holder {
+    height: calc(304px + 2vw);
+  }
+}
+
 .from-column {
   width: 280px;
   line-height: 30px;

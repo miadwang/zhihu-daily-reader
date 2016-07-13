@@ -2,34 +2,37 @@
   outline: solid 1px red
 }*/
 
+
+
+/*Mobile First*/
 html,
-body,
-#app {
-  margin: 0;
+body {
   padding: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
-  background-color: white;
 }
 
 .app-wrapper {
   font-size: 14px;
   width: 100vw;
   height: 100%;
+  margin: 0 auto;
   font-family: 'Helvetica Neue', Helvetica, arial, sans-serif;
-  position: absolute;
-  left: 0;
+  position: fixed;
+  overflow-x: hidden;
+  background-color: white;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 }
-/*app wrapper cannot move with side bar, it will hide side bar on iphone. So side bar, title bar and main need to move separately. It seems the app wrapper is the active area on iphone screen. Don't know why!!!TODO*/
 
+
+
+/*Side Bar Styles*/
 .side-bar {
-  width: 60vw;
+  width: 200px;
   height: 100%;
   position: fixed;
-  top: 0;
-  left: -60vw;
+  left: -200px;
   background-color: #222;
   transform: translate3d(0, 0, 0);
   transition: transform 0.3s ease;
@@ -42,6 +45,7 @@ body,
   font-size: 18px;
   font-weight: normal;
   margin: 20px 35px;
+  padding: 0;
 }
 
 .side-bar-active .side-bar{
@@ -49,7 +53,7 @@ body,
 }
 
 .theme-list {
-  padding-left: 0;
+  padding: 0;
   margin: 20px 20px;
 }
 
@@ -57,30 +61,31 @@ body,
   list-style: none;
 }
 
-.theme-list li a {
+.theme-list a {
   color: white;
   font-size: 16px;
   line-height: 1.4;
   display: block;
   padding: 12px 15px;
+  margin: 0;
   text-decoration: none;
 }
 
+
+
+/*Title Bar Styles*/
 .title-bar {
   height: 50px;
-  width: 100vw;
+  width: 100%;
   position: fixed;
-  top: 0;
-  left: 0;
   background-color: transparent;
   transform: translate3d(0, 0, 0);
   transition: transform 0.3s ease;
   z-index: 500;
 }
-/*title bar needs to be fixed. if put title bar in main and main has transfrom transition. title bar will no longer fix. It's an apple issue. Not certain!TODO*/
 
 .side-bar-active .title-bar{
-  transform: translate3d(60%, 0, 0);
+  transform: translate3d(200px, 0, 0);
 }
 
 .title-bar button {
@@ -92,17 +97,6 @@ body,
   margin-left: 5px;
 }
 
-@keyframes appear {
-  0% {opacity: 0}
-  100% {opacity: 1}
-}
-
-.button-back {
-  animation: appear 0.3s ease;
-  animation-fill-mode: backwards;
-  animation-delay: 0.3s;
-}
-
 .title-bar a {
   text-align: center;
   clear: left;
@@ -112,61 +106,87 @@ body,
   color: white;
   text-decoration: none;
   margin-top: 21px;
+  padding: 0;
 }
 
-.main{
-  width: 100vw;
+
+
+/*Main Styles*/
+.main {
+  width: 100%;
   position: absolute;
-  top: 0;
-  left: 0;
+  height: 100%;
   transition: transform 0.3s ease;
-  overflow-x: hidden;
+}
+
+.frozer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: transparent;
+  z-index: 5000;
 }
 
 .side-bar-active .main{
-  transform: translate3d(60%, 0, 0);
+  transform: translate3d(200px, 0, 0);
+}
+/*no transform of main when side bar not active because it will prevent child divs from fixing!*/
+
+
+
+/*Article List Styles*/
+.article-list-wrapper {
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
+.side-bar-active .article-list-wrapper {
+  position: fixed;
+}
+/*Position fixed prevent the list from y scrolling. overflow hidden of app wrapper pervent the list from x scrolling*/
+
 .top-article-slider {
-  width: 100vw;
-  height: 200px;
+  width: 100%;
+  height: 55vw;
   transform: translate3d(0, 0, 0);
+  overflow: hidden;
 }
 
 .image-gallery {
   position: absolute;
-  left: -100vw;
-  height: 200px;
-  width: 300vw;
+  left: -100%;
+  width: 300%;
+  height: 55vw;
   white-space: nowrap;
 }
 
 .image-gallery a {
-  width: 100vw;
-  height: 200px;
+  width: 33.33%;
+  height: 55vw;
   display: block;
   position: absolute;
-  left: 200vw;
+  left: 66.67%;
   opacity: 0;
   z-index: 0;
 }
 
 .image-gallery .current-image {
-  left: 100vw;
+  left: 33.33%;
   opacity: 1;
-  z-index: 3
+  z-index: 30;
 }
 
 .image-gallery .prev-image {
   left: 0;
   opacity: 1;
-  z-index: 1;
+  z-index: 10;
 }
 
 .image-gallery .next-image {
-  left: 200vw;
+  left: 66.67%;
   opacity: 1;
-  z-index: 2;
+  z-index: 20;
 }
 
 .image-gallery .animation {
@@ -174,7 +194,7 @@ body,
 }
 
 .image-gallery .image {
-  height: 200px;
+  height: 55vw;
   width: 100%;
   background-position: center;
   background-size: cover;
@@ -183,13 +203,11 @@ body,
 }
 
 .image-gallery h1 {
-  margin: 0;
+  margin: 0 20px;
+  padding: 0;
   position: absolute;
   bottom:  18px;
-  margin-left: 20px;
-  margin-right: 20px;
   color: white;
-  font-family: 'Open Sans', arial, sans-serif;
   font-size: 18px;
   font-weight: normal;
   white-space: pre-wrap;
@@ -197,12 +215,35 @@ body,
 
 .top-article-slider .control {
   position: absolute;
-  z-index: 9999;
+  z-index: 10;
   bottom: 0;
+  left: calc(50% - 50px);
+  width: 150px;
+  text-align: left;
+  display: inline-block;
+}
+
+.control ul {
+  padding: 0;
+  margin: 0;
+}
+
+.control li {
+  list-style: none;
+  color: white;
+  opacity: 0.3;
+  display: inline-block;
+  margin-left: 8px;
+  margin-bottom: 5px;
+  text-decoration: none;
+}
+
+li.current-index {
+  opacity: 1;
 }
 
 .article-list {
-  padding-left: 0;
+  padding: 0;
   margin: 0 14px;
 }
 
@@ -217,8 +258,8 @@ body,
   font-size: 16px;
   line-height: 1.4;
   display: block;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px 0;
+  margin: 0;
   text-decoration: none;
   border-bottom: solid 1px #ddd;
   overflow: auto;
@@ -226,39 +267,38 @@ body,
 
 .article-item span {
   float: left;
-  width: calc(100% - 90px);
+  width: 70%;
 }
 
 .article-item .image {
   float: right;
-  width: 80px;
-  height: 60px;
+  width: 20%;
+  height: 16vw;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
+
+
+/*Article Detail Styles*/
 .article-detail-wrapper {
   width: 100%;
   height: 100%;
   position: fixed;
-  top: 0;
-  left: 0;
-  transform: translateX(100%);
+  left: 100vw;
+  transform: translate3d(0, 0, 0);
   transition: transform 0.3s ease;
-  overflow: scroll;
   z-index: 100;
   background: white;
 }
 
 .article-detail-active {
-  transform: translateX(0);
+  transform: translate3d(-100%, 0, 0);
 }
 
 .article-detail .image {
-  top:0;
-  left:0;
-  height: 200px;
+  height: 55vw;
   width: 100%;
   background-size: cover;
   background-position: center;
@@ -268,11 +308,10 @@ body,
 }
 
 .article-detail .image h1 {
-  margin: 0;
   position: absolute;
   bottom:  18px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: 0 20px;
+  padding: 0;
   color: white;
   font-size: 18px;
   font-weight: normal;
@@ -292,16 +331,15 @@ body,
 
 .inner-html {
   position: relative;
-  top:0;
-  left:0;
   width: 100%;
 }
 
+
+
+/*Other Styles*/
 .loading-wrapper {
   width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -313,4 +351,135 @@ body,
 
 .footer {
   text-align: center;
+}
+
+
+
+/*Media Query for larger screens*/
+@media screen and (min-width: 600px) {
+  button.button-menu {
+    display: none;
+  }
+
+  .side-bar {
+    left: 0;
+  }
+
+  .title-bar,
+  .main {
+    width: calc(100% - 200px);
+    left: 200px;
+  }
+
+  .top-article-slider {
+    width: 100%;
+    height: 304px;
+  }
+
+  .article-detail-wrapper {
+    width: calc(100% - 200px);
+  }
+
+  .image-gallery,
+  .image-gallery .image,
+  .article-detail .image {
+    height: 38vw;
+  }
+
+  .article-item .image {
+    height: 11.3vw;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .app-wrapper {
+    margin-top: 3vw;
+  }
+
+  .side-bar {
+    left: calc(50vw - 400px);
+    top: 3vw;
+  }
+
+  .title-bar {
+    width: 600px;
+    left: calc(50vw - 200px);
+    top: 3vw;
+  }
+
+  .main {
+    width: 600px;
+    left: calc(50vw - 200px);
+  }
+
+  .article-detail-wrapper {
+    width: 600px;
+    top: 3vw;
+  }
+
+  .article-detail-active {
+    transform: translate3d(calc(-100% - 50vw + 400px), 0, 0);
+  }
+
+  .top-article-slider,
+  .image-gallery,
+  .image-gallery .image,
+  .article-detail .image {
+    height: 304px;
+  }
+
+  .article-item .image {
+    height: 90px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .app-wrapper {
+    margin-top: 30px;
+  }
+
+  .side-bar {
+    left: 50px;
+    top: 30px;
+    width: 250px;
+  }
+
+  .title-bar {
+    width: calc(50vw + 100px);
+    right: 100px;
+    top: 30px;
+  }
+
+  .main {
+    width: calc(50vw + 100px);
+    right: 100px;
+  }
+
+  .top-article-slider {
+    width: calc(50vw + 100px);
+    height: 304px;
+  }
+
+  .article-detail-wrapper {
+    width: calc(50vw + 100px);
+    top: 30px;
+  }
+
+  .article-detail-active {
+    transform: translate3d(calc(-100% - 100px), 0, 0);
+  }
+
+  .image-gallery,
+  .image-gallery .image,
+  .article-detail .image {
+    height: 304px;
+  }
+
+  .article-item a {
+    padding: 15px 0;
+  }
+
+  .article-item .image {
+    height: 90px;
+  }
 }

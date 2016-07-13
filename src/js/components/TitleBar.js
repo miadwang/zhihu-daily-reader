@@ -10,7 +10,7 @@ class TitleBar extends Component {
               Back
             </button>
           ) : (
-            <button type="button" onClick={this.props.actions.toggleSideBar}>
+            <button type="button" className="button-menu" onClick={this.props.actions.toggleSideBar}>
             &#9776;
             </button>
           )

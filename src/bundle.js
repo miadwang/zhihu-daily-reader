@@ -29132,25 +29132,25 @@
 	  fetchLatestArticleList: function fetchLatestArticleList() {
 	    return {
 	      type: 'FETCH_LATEST_ARTICLE_LIST',
-	      payload: _axios2.default.get('https://zhihudaily.leanapp.cn/api/4/news/latest')
+	      payload: _axios2.default.get('https://yuanotes-zhihudaily-proxy.daoapp.io/api/4/news/latest')
 	    };
 	  },
 	  fetchArticleDetail: function fetchArticleDetail(id) {
 	    return {
 	      type: 'FETCH_ARTICLE_DETAIL',
-	      payload: _axios2.default.get('https://zhihudaily.leanapp.cn/api/4/news/' + id)
+	      payload: _axios2.default.get('https://yuanotes-zhihudaily-proxy.daoapp.io/api/4/news/' + id)
 	    };
 	  },
 	  fetchThemeList: function fetchThemeList() {
 	    return {
 	      type: 'FETCH_THEME_LIST',
-	      payload: _axios2.default.get('https://zhihudaily.leanapp.cn/api/4/themes')
+	      payload: _axios2.default.get('https://yuanotes-zhihudaily-proxy.daoapp.io/api/4/themes')
 	    };
 	  },
 	  fetchThemeArticleList: function fetchThemeArticleList(id) {
 	    return {
 	      type: 'FETCH_THEME_ARTICLE_LIST',
-	      payload: _axios2.default.get('https://zhihudaily.leanapp.cn/api/4/theme/' + id)
+	      payload: _axios2.default.get('https://yuanotes-zhihudaily-proxy.daoapp.io/api/4/theme/' + id)
 	    };
 	  },
 	  toggleSideBar: function toggleSideBar() {
@@ -31080,7 +31080,7 @@
 	                  // backgroundImage: `-webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
 	                  // backgroundImage: `-o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
 	                  // backgroundImage: `-ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
-	                  backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(' + topArticleItem.image.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://zhihudaily.leanapp.cn/pic$1') + ')'
+	                  backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(' + topArticleItem.image.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/pic$1') + ')'
 	                } }),
 	              _react2.default.createElement(
 	                'h1',
@@ -31275,7 +31275,7 @@
 	      var _this2 = this;
 	
 	      var divStyle = {
-	        backgroundImage: 'url(' + this.props.articleItem.images[0].replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://zhihudaily.leanapp.cn/pic$1') + ')'
+	        backgroundImage: 'url(' + this.props.articleItem.images[0].replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/pic$1') + ')'
 	      };
 	
 	      return _react2.default.createElement(
@@ -31450,7 +31450,7 @@
 	                // backgroundImage: `-webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img})`,
 	                // backgroundImage: `-o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img})`,
 	                // backgroundImage: `-ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img})`,
-	                backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(' + this.props.articleDetail.img.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://zhihudaily.leanapp.cn/pic$1') + ')'
+	                backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(' + this.props.articleDetail.img.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/pic$1') + ')'
 	              } },
 	            _react2.default.createElement(
 	              'h1',
@@ -31464,7 +31464,7 @@
 	              this.props.articleDetail.imgSource
 	            )
 	          ),
-	          _react2.default.createElement('div', { className: 'inner-html', ref: 'innerHtml', dangerouslySetInnerHTML: this.createMarkup(this.props.articleDetail.body.replace(/https?:\/\/pic(\d)\.zhimg\.com/g, 'https://zhihudaily.leanapp.cn/pic$1')) })
+	          _react2.default.createElement('div', { className: 'inner-html', ref: 'innerHtml', dangerouslySetInnerHTML: this.createMarkup(this.props.articleDetail.body.replace(/https?:\/\/pic(\d)\.zhimg\.com/g, 'https://yuanotes-zhihudaily-proxy.daoapp.io/pic$1')) })
 	        )
 	      );
 	    }
