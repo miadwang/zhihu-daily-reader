@@ -17,6 +17,7 @@ class Main extends Component {
       scrollHeight: 0,
     };
     this.handleScroll = this.handleScroll.bind(this);
+    this.handleFrozerClick = this.handleFrozerClick.bind(this);
   }
 
   componentDidMount() {
@@ -41,6 +42,11 @@ class Main extends Component {
       var opacity = this.state.main.scrollTop / this.state.scrollHeight;
       this.props.actions.changeTitleBarOpacity(opacity);
     }
+  }
+
+  handleFrozerClick(e) {
+    e.preventDefault();
+    this.props.actions.hideSideBar();
   }
 
   render() {
@@ -75,7 +81,7 @@ class Main extends Component {
         onTouchMove={this.handleScroll}>
           {
             this.props.layout.sideBarIsActive ? (
-              <div className="frozer" onClick={this.props.actions.toggleSideBar}/>
+              <div className="frozer" onClick={this.handleFrozerClick} onTouchEnd={this.handleFrozerClick}/>
             ) : null
           }
 
