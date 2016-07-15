@@ -3,26 +3,19 @@ import { Link } from 'react-router';
 
 class TitleBar extends Component {
   render() {
-    var divStyle = {};
+    var divStyle = {
+      opacity: this.props.titleBar.backgroundOpacity
+    };
 
     if (this.props.layout.articleDetailIsActive) {
       divStyle = {
         display: 'none'
       };
     } else if (this.props.titleBar.themeImage.length > 0) {
-      divStyle = {
+      divStyle = {...divStyle,
         backgroundImage:
         `url(${this.props.titleBar.themeImage.replace(/http:\/\/(pi?c?\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/$1')})`,
-        opacity: 1,
-        webkitFilter: 'blur(5px)'
-      };
-    } else if (this.props.titleBar.theme !== '今日热文') {
-      divStyle = {
-        opacity: 1
-      };
-    } else {
-      divStyle = {
-        opacity: this.props.titleBar.backgroundOpacity
+        WebkitFilter: 'blur(5px)'
       };
     }
 

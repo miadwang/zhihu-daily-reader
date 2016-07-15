@@ -4,8 +4,11 @@ import ArticleItem from './ArticleItem';
 
 class ArticleList extends Component {
   render() {
+    const divStyle = {
+      marginTop: (this.props.theme === '今日热文' ? '' : '50px')
+    };
     return (
-      <ul className="article-list">
+      <ul className="article-list" style={divStyle}>
         {
           this.props.articleList.articleItems.map((articleItem, key) => <ArticleItem key={key} articleItem={articleItem} actions={this.props.actions}/>)
         }
@@ -23,6 +26,7 @@ ArticleList.propTypes = {
     topArticleItems: PropTypes.arrayOf(PropTypes.object),
     articleItems: PropTypes.arrayOf(PropTypes.object).isRequired
   }),
+  theme: PropTypes.string.isRequired,
   children: PropTypes.node,
   actions: PropTypes.object.isRequired
 };

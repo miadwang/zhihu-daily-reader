@@ -38,7 +38,6 @@ class Main extends Component {
   handleScroll() {
     if (this.props.theme === '今日热文') {
       const opacity = this.state.main.scrollTop / this.state.scrollHeight;
-
       this.props.actions.changeTitleBarOpacity(opacity);
     }
   }
@@ -82,7 +81,7 @@ class Main extends Component {
             (this.props.theme === '今日热文') ? <TopArticleSlider ref="slider" topArticleItems={this.props.articleList.topArticleItems} articleListIsFetched={this.props.articleList.fetched} actions={this.props.actions}/> : null
           }
 
-          <ArticleList articleList={this.props.articleList} actions={this.props.actions}/>
+          <ArticleList articleList={this.props.articleList} theme={this.props.theme} actions={this.props.actions}/>
 
           <Footer actions={this.props.actions}/>
         </div>

@@ -8,7 +8,7 @@ const titleBarInitialState = {
 const titleBarReducer = (state=titleBarInitialState, action) => {
   switch(action.type) {
     case 'CHANGE_TITLE': {
-      return {...state, theme: action.payload.theme, themeId: action.payload.themeId, themeImage: action.payload.themeImage};
+      return {...state, theme: action.payload.theme, themeId: action.payload.themeId, themeImage: action.payload.themeImage, backgroundOpacity: action.payload.backgroundOpacity};
     }
     case 'CHANGE_OPACITY': {
       return {...state, backgroundOpacity: action.payload}

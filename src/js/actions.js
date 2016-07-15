@@ -45,13 +45,14 @@ let actions = {
       type: 'HIDE_ARTICLE_DETAIL'
     };
   },
-  changeTitle: function(name, id, image) {
+  changeTitle: function(name, id, image, opacity) {
     return {
       type: 'CHANGE_TITLE',
       payload: {
         theme: name,
         themeId: id,
-        themeImage: image
+        themeImage: image,
+        backgroundOpacity: opacity
       }
     };
   },

@@ -47,7 +47,7 @@ class SideBar extends Component {
           <li>
             <Link to="/" onClick={
               () => {
-                this.props.actions.changeTitle('今日热文', 0, '');
+                this.props.actions.changeTitle('今日热文', 0, '', 0);
                 this.props.actions.fetchLatestArticleList();
                 this.props.actions.hideArticleDetail();
                 this.props.actions.hideSideBar();
@@ -63,7 +63,7 @@ class SideBar extends Component {
                 <li key={key}>
                   <Link to={'/themes/' + theme.id} onClick={
                     () => {
-                      this.props.actions.changeTitle(theme.name, theme.id, theme.thumbnail);
+                      this.props.actions.changeTitle(theme.name, theme.id, theme.thumbnail, 1);
                       this.props.actions.fetchThemeArticleList(theme.id);
                       this.props.actions.hideArticleDetail();
                       this.props.actions.hideSideBar();
