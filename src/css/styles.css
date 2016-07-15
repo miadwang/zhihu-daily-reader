@@ -105,8 +105,13 @@ body {
   position: fixed;
   background: transparent;
   transform: translate3d(0, 0, 0);
+  transition: transform 0.3s ease;
   z-index: 8000;
   right: 0;
+}
+
+.side-bar-active .title-bar {
+  transform: translate3d(200px, 0, 0);
 }
 
 .title-bar-text {

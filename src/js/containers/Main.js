@@ -15,7 +15,6 @@ class Main extends Component {
     this.state = {
       main: null,
       scrollHeight: 0,
-      titleBarOpacity: 0
     };
   }
 
@@ -26,7 +25,7 @@ class Main extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!this.props.layout.articleDetailIsActive && !nextProps.layout.articleDetailIsActive) {
+    if (this.props.theme !== nextProps.theme) {
       this.state.main.scrollTop = 0;
     }
   }
@@ -39,7 +38,7 @@ class Main extends Component {
   handleScroll() {
     if (this.props.theme === '今日热文') {
       const opacity = this.state.main.scrollTop / this.state.scrollHeight;
-      
+
       this.props.actions.changeTitleBarOpacity(opacity);
     }
   }
@@ -101,6 +100,7 @@ Main.propTypes = {
     error: PropTypes.object,
     topArticleItems: PropTypes.arrayOf(PropTypes.object)
   }),
+  theme: PropTypes.string.isRequired,
   layout: PropTypes.shape({
     sideBarIsActive: PropTypes.bool.isRequired,
     articleDetailIsActive: PropTypes.bool.isRequired

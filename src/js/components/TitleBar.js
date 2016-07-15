@@ -7,12 +7,14 @@ class TitleBar extends Component {
 
     if (this.props.layout.articleDetailIsActive) {
       divStyle = {
-        display: none
+        display: 'none'
       };
     } else if (this.props.titleBar.themeImage.length > 0) {
       divStyle = {
         backgroundImage:
-        'url(' + this.props.titleBar.themeImage.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/pic$1') + '), #2c82c9'
+        `url(${this.props.titleBar.themeImage.replace(/http:\/\/(pi?c?\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/$1')})`,
+        opacity: 1,
+        webkitFilter: 'blur(5px)'
       };
     } else if (this.props.titleBar.theme !== '今日热文') {
       divStyle = {
