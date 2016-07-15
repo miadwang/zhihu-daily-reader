@@ -29,13 +29,14 @@ class TopArticleSlider extends Component {
     this.handleTouchMove = this.handleTouchMove.bind(this);
   }
 
-  componentDidMount() {
-    this.state.imageGallery = findDOMNode(this.refs.imageGallery);
-    this.state.number = this.state.imageGallery.children.length;
-    const self = this;
-    this.state.timer = setInterval(() => {self.swipeLeft();}, 2000);
+  componentDidUpdate(prevProps) {
+    if (this.props.articleListIsFetched && !prevProps.articleListIsFetched) {
+      this.state.imageGallery = findDOMNode(this.refs.imageGallery);
+      this.state.number = this.state.imageGallery.children.length;
+      const self = this;
+      this.state.timer = setInterval(() => {self.swipeLeft();}, 2000);
+    }
   }
-
 
   componentWillUnmount() {
     clearInterval(this.state.timer);
@@ -116,40 +117,44 @@ class TopArticleSlider extends Component {
   render() {
     return (
       <div className="top-article-slider">
-        <div ref="imageGallery" className="image-gallery" onClick={this.handleTouchStart}>
+        {
+          this.props.articleListIsFetched ?
+          <div ref="imageGallery" className="image-gallery" onClick={this.handleTouchStart}>
           {
             this.props.topArticleItems.map((topArticleItem, index) => (
               <Link key={index}
-                onClick={() => {
-                  this.props.actions.fetchArticleDetail(topArticleItem.id);
-                  this.props.actions.hideSideBar();
-                  this.props.actions.showArticleDetail();
-                }}
-                onTouchStart={this.handleTouchStart}
-                onTouchMove={this.handleTouchMove}
-                onTouchEnd={this.handleTouchEnd}
-                className={
-                  classNames({
-                    'current-image': (this.state.currentIndex === index),
-                    'prev-image': (this.state.prevIndex === index),
-                    'next-image': (this.state.nextIndex === index),
-                    'animation': (this.state.animation === true)
-                  })
-                }
-                to={`/article/${topArticleItem.id}`}>
-                  <div className="image" style={{
-                    // backgroundImage: `-moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
-                    // backgroundImage: `-webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(100%, rgba(0,0,0,0.5))),url(${topArticleItem.image})`,
-                    // backgroundImage: `-webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
-                    // backgroundImage: `-o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
-                    // backgroundImage: `-ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
-                    backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/pic$1')})`
-                  }}/>
-                <h1>{topArticleItem.title}</h1>
+              onClick={() => {
+                this.props.actions.fetchArticleDetail(topArticleItem.id);
+                this.props.actions.hideSideBar();
+                this.props.actions.showArticleDetail();
+              }}
+              onTouchStart={this.handleTouchStart}
+              onTouchMove={this.handleTouchMove}
+              onTouchEnd={this.handleTouchEnd}
+              className={
+                classNames({
+                  'current-image': (this.state.currentIndex === index),
+                  'prev-image': (this.state.prevIndex === index),
+                  'next-image': (this.state.nextIndex === index),
+                  'animation': (this.state.animation === true)
+                })
+              }
+              to={`/article/${topArticleItem.id}`}>
+              <div className="image" style={{
+                // backgroundImage: `-moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
+                // backgroundImage: `-webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(100%, rgba(0,0,0,0.5))),url(${topArticleItem.image})`,
+                // backgroundImage: `-webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
+                // backgroundImage: `-o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
+                // backgroundImage: `-ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
+                backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/pic$1')})`
+              }}/>
+              <h1>{topArticleItem.title}</h1>
               </Link>
             ))
           }
-        </div>
+          </div> : null
+        }
+
         <div className="control">
           <ul>
             {
@@ -175,6 +180,7 @@ TopArticleSlider.propTypes = {
       title: PropTypes.string.isRequired
     }).isRequired
   ).isRequired,
+  articleListIsFetched: PropTypes.bool.isRequired,
   actions: PropTypes.object.isRequired
 };
 
