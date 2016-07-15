@@ -26,6 +26,10 @@ class ArticleDetail extends Component {
     this.props.actions.fetchArticleDetail(this.props.articleDetail.id);
   }
 
+  handleScroll(e) {
+    e.preventDefault();
+  }
+
   render() {
     const divStyle = {
       overflowY: 'scroll',
@@ -38,8 +42,8 @@ class ArticleDetail extends Component {
 
         {
           this.props.articleDetail.fetching ? (
-            <div className="loading-wrapper">
-            <Loading/>
+            <div className="loading-wrapper" onScroll={this.handleScroll.bind(this)} onWheel={this.handleScroll.bind(this)}>
+              <Loading/>
             </div>
           ) : null
         }
