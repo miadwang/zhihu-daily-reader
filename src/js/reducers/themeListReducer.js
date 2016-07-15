@@ -8,7 +8,7 @@ const themeListInitialState = {
 const themeListReducer = (state=themeListInitialState, action) => {
   switch(action.type) {
     case 'FETCH_THEME_LIST_PENDING': {
-      return {...state, fetching: true};
+      return {...state, fetching: true, fetched: false, error: null};
     }
     case 'FETCH_THEME_LIST_REJECTED': {
       return {...state, fetching: false, error: action.payload};

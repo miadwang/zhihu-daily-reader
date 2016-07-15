@@ -16,6 +16,11 @@ class Main extends Component {
       main.scrollTop = 0;
     }
   }
+  
+  handleReload() {
+    if (this.props.titleBar.theme === '今日热文') this.props.actions.fetchLatestArticleList();
+    else this.props.actions.fetchThemeArticleList(this.props.titleBar.themeId);
+  }
 
   render() {
     const divStyle = {
@@ -26,23 +31,33 @@ class Main extends Component {
 
     return (
       <div ref="main" className="main" style={divStyle}>
+
+      {
+        this.props.articleList.fetching ? (
+          <div className="loading-wrapper under-main">
+            <Loading/>
+          </div>
+        ) : null
+      }
+
+      {
+        this.props.articleList.error ? (
+          <div className="loading-wrapper under-main">
+            <p>
+              服务器开小差了，请点击<button type="button" onClick={this.handleReload.bind(this)}>这里</button>重试~
+            </p>
+          </div>
+        ) : null
+      }
+
         <div className="article-list-wrapper">
+        {
+          this.props.layout.sideBarIsActive ? (
+            <div className="frozer" onClick={this.props.actions.toggleSideBar}/>
+          ) : null
+        }
           {
-            this.props.layout.sideBarIsActive ? (
-              <div className="frozer" onClick={this.props.actions.toggleSideBar}/>
-            ) : null
-          }
-
-          {
-            this.props.articleList.fetching ? (
-              <div className="loading-wrapper">
-                <Loading/>
-              </div>
-            ) : null
-          }
-
-          {
-            (this.props.articleList.theme === '今日热文') ? <TopArticleSlider ref="slider" topArticleItems={this.props.articleList.topArticleItems} actions={this.props.actions}/> : null
+            (this.props.titleBar.theme === '今日热文' && this.props.articleList.fetched) ? <TopArticleSlider ref="slider" topArticleItems={this.props.articleList.topArticleItems} actions={this.props.actions}/> : null
           }
 
           <ArticleList articleList={this.props.articleList} actions={this.props.actions}/>
@@ -57,7 +72,15 @@ class Main extends Component {
 }
 
 Main.propTypes = {
-  articleList: PropTypes.object,
+  titleBar: PropTypes.shape({
+    theme: PropTypes.string.isRequired,
+    themeId: PropTypes.number.isRequired
+  }).isRequired,
+  articleList: PropTypes.shape({
+    fetching: PropTypes.bool.isRequired,
+    error: PropTypes.object,
+    topArticleItems: PropTypes.arrayOf(PropTypes.object)
+  }),
   layout: PropTypes.shape({
     sideBarIsActive: PropTypes.bool.isRequired,
     articleDetailIsActive: PropTypes.bool.isRequired
@@ -68,6 +91,7 @@ Main.propTypes = {
 
 function mapStateToProps(state) {
   return {
+    titleBar: state.titleBar,
     articleList: state.articleList,
     layout: state.layout
   };

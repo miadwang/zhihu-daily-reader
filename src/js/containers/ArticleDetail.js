@@ -22,6 +22,10 @@ class ArticleDetail extends Component {
     };
   }
 
+  handleReload() {
+    this.props.actions.fetchArticleDetail(this.props.articleDetail.id);
+  }
+
   render() {
     const divStyle = {
       overflowY: 'scroll',
@@ -39,6 +43,17 @@ class ArticleDetail extends Component {
             </div>
           ) : null
         }
+
+        {
+          this.props.articleDetail.error ? (
+            <div className="loading-wrapper">
+              <p>
+                服务器开小差了，请点击<button type="button" onClick={this.handleReload.bind(this)}>这里</button>重试~
+              </p>
+            </div>
+          ) : null
+        }
+
 
         <div className="article-detail">
           <div className="image" style={{
@@ -70,7 +85,8 @@ ArticleDetail.propTypes = {
     css: PropTypes.array.isRequired,
     img: PropTypes.string,
     imgSource: PropTypes.string,
-    title: PropTypes.string
+    title: PropTypes.string,
+    id: PropTypes.number.isRequired
   }).isRequired,
   layout: PropTypes.shape({
     articleDetailIsActive: PropTypes.bool.isRequired

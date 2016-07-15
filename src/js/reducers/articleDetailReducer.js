@@ -1,4 +1,4 @@
-const articleInitialState = {
+const articleDetailInitialState = {
   fetching: false,
   fetched: false,
   error: null,
@@ -6,11 +6,15 @@ const articleInitialState = {
   css: [],
   img: '',
   imgSource: '',
-  title: ''
+  title: '',
+  id: 0
 };
 
-const latestDetailReducer = (state=articleInitialState, action) => {
+const articleDetailReducer = (state=articleDetailInitialState, action) => {
   switch(action.type) {
+    case 'CHANGE_ARTICLE_ID': {
+      return {...state, id: action.payload.id};
+    }
     case 'FETCH_ARTICLE_DETAIL_PENDING': {
       return {...state, fetching: true, fetched: false, error: null};
     }
@@ -32,4 +36,4 @@ const latestDetailReducer = (state=articleInitialState, action) => {
   return state;
 };
 
-export default latestDetailReducer;
+export default articleDetailReducer;
