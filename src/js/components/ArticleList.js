@@ -21,8 +21,7 @@ ArticleList.propTypes = {
     date: PropTypes.string.isRequired,
     error: PropTypes.object,
     topArticleItems: PropTypes.arrayOf(PropTypes.object),
-    articleItems: PropTypes.arrayOf(PropTypes.object).isRequired,
-    theme: PropTypes.string.isRequired
+    articleItems: PropTypes.arrayOf(PropTypes.object).isRequired
   }),
   children: PropTypes.node,
   actions: PropTypes.object.isRequired

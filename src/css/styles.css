@@ -10,6 +10,7 @@ body {
   padding: 0;
   width: 100vw;
   height: 100%;
+  margin: 0 auto;
 }
 
 .app-wrapper {
@@ -37,11 +38,11 @@ body {
   transform: translate3d(0, 0, 0);
   transition: transform 0.3s ease;
   z-index: 1000;
+  color: white;
 }
 /*translate3d is way faster than left on iphone. 100% percentage is relative to the div width not the parent div width!!!*/
 
 .side-bar h1 {
-  color: white;
   font-size: 18px;
   font-weight: normal;
   margin: 20px 35px;
@@ -62,13 +63,17 @@ body {
 }
 
 .theme-list a {
-  color: white;
   font-size: 16px;
   line-height: 1.4;
   display: block;
   padding: 12px 15px;
   margin: 0;
   text-decoration: none;
+  color: white;
+}
+
+.theme-list a:hover {
+  color: green;
 }
 
 
@@ -81,7 +86,8 @@ body {
   background-color: transparent;
   transform: translate3d(0, 0, 0);
   transition: transform 0.3s ease;
-  z-index: 500;
+  z-index: 8000;
+  right: 0;
 }
 
 .side-bar-active .title-bar{
@@ -113,10 +119,12 @@ body {
 
 /*Main Styles*/
 .main {
+  background-color: white;
   width: 100%;
   position: absolute;
   height: 100%;
   transition: transform 0.3s ease;
+  right: 0;
 }
 
 .frozer {
@@ -215,7 +223,7 @@ body {
 
 .top-article-slider .control {
   position: absolute;
-  z-index: 10;
+  z-index: 100;
   bottom: 0;
   left: calc(50% - 50px);
   width: 150px;
@@ -263,6 +271,19 @@ li.current-index {
   text-decoration: none;
   border-bottom: solid 1px #ddd;
   overflow: auto;
+}
+
+.article-item a:link {
+  color: red;
+}
+.article-item a:visited {
+  color: blue;
+}
+.article-item a:hover {
+  color: green;
+}
+.article-item a:active {
+  color: yellow;
 }
 
 .article-item span {
@@ -340,13 +361,26 @@ li.current-index {
 .loading-wrapper {
   width: 100%;
   height: 100%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding-top: 40%;
-  background-color: white;
+  background-color: inherit;
   position: fixed;
   z-index: 300;
+}
+
+.loading-wrapper div {
+  top: 40%;
+}
+
+.loading-wrapper p {
+  top: 40%;
+  text-align: center;
+  position: relative;
+  padding: 0 20px;
+}
+
+.loading-wrapper button {
+  text-decoration: none;
+  font-size: inherit;
+  color: inherit;
 }
 
 .footer {
@@ -366,14 +400,15 @@ li.current-index {
   }
 
   .title-bar,
-  .main {
+  .main,
+  .under-main {
     width: calc(100% - 200px);
     left: 200px;
   }
 
   .top-article-slider {
     width: 100%;
-    height: 304px;
+    height: 38vw;
   }
 
   .article-detail-wrapper {
@@ -381,6 +416,7 @@ li.current-index {
   }
 
   .image-gallery,
+  .image-gallery a,
   .image-gallery .image,
   .article-detail .image {
     height: 38vw;
@@ -403,13 +439,16 @@ li.current-index {
 
   .title-bar {
     width: 600px;
-    left: calc(50vw - 200px);
+    right: calc(50vw - 400px);
     top: 3vw;
+    left: auto;
   }
 
-  .main {
+  .main,
+  .under-main {
     width: 600px;
-    left: calc(50vw - 200px);
+    left: auto;
+    right: calc(50vw - 400px);
   }
 
   .article-detail-wrapper {
@@ -423,6 +462,7 @@ li.current-index {
 
   .top-article-slider,
   .image-gallery,
+  .image-gallery a,
   .image-gallery .image,
   .article-detail .image {
     height: 304px;
@@ -450,7 +490,8 @@ li.current-index {
     top: 30px;
   }
 
-  .main {
+  .main,
+  .under-main {
     width: calc(50vw + 100px);
     right: 100px;
   }
@@ -458,6 +499,10 @@ li.current-index {
   .top-article-slider {
     width: calc(50vw + 100px);
     height: 304px;
+  }
+
+  .article-list {
+    margin-top: 20px;
   }
 
   .article-detail-wrapper {
@@ -469,17 +514,33 @@ li.current-index {
     transform: translate3d(calc(-100% - 100px), 0, 0);
   }
 
-  .image-gallery,
-  .image-gallery .image,
-  .article-detail .image {
-    height: 304px;
-  }
-
   .article-item a {
     padding: 15px 0;
   }
 
   .article-item .image {
     height: 90px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .side-bar {
+    left: calc(50vw - 550px);
+  }
+
+  .title-bar,
+  .main,
+  .under-main {
+    width: 650px;
+    right: calc(50vw - 500px);
+  }
+
+  .top-article-slider,
+  .article-detail-wrapper {
+    width: 650px;
+  }
+
+  .article-detail-active {
+    transform: translate3d(calc(-50vw - 150px), 0, 0);
   }
 }

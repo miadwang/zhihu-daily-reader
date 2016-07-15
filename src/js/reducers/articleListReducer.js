@@ -4,8 +4,7 @@ const articleListInitialState = {
   error: null,
   date: '',
   topArticleItems: [],
-  articleItems: [],
-  theme: ''
+  articleItems: []
 };
 
 const articleListReducer = (state=articleListInitialState, action) => {
@@ -22,8 +21,7 @@ const articleListReducer = (state=articleListInitialState, action) => {
           fetched: true,
           date: action.payload.data.date,
           topArticleItems: action.payload.data.top_stories,
-          articleItems: action.payload.data.stories,
-          theme: '今日热文'
+          articleItems: action.payload.data.stories
       };
     }
     case 'FETCH_THEME_ARTICLE_LIST_PENDING': {
@@ -37,8 +35,7 @@ const articleListReducer = (state=articleListInitialState, action) => {
           fetching: false,
           fetched: true,
           articleItems: action.payload.data.stories,
-          topArticleItems: [],
-          theme: action.payload.data.name
+          topArticleItems: []
       };
     }
   }

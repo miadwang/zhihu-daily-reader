@@ -362,7 +362,7 @@ ol {
   height: 55vw;
 }
 
-@media screen and (min-width: 650px) {
+@media screen and (min-width: 600px) {
   .headline .img-place-holder {
     height: 38vw;
   }
@@ -371,12 +371,6 @@ ol {
 @media screen and (min-width: 800px) {
   .headline .img-place-holder {
     height: 304px;
-  }
-}
-
-@media screen and (min-width: 1000px) {
-  .headline .img-place-holder {
-    height: calc(304px + 2vw);
   }
 }
 

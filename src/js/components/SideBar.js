@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import {findDOMNode} from 'react-dom';
 
+import Loading from 'react-loading-animation';
+
 class SideBar extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.layout.sideBarIsActive) {
@@ -18,15 +20,34 @@ class SideBar extends Component {
     };
 
     return (
-
       <div ref="sidebar" className="side-bar" style={divStyle}>
         <h1>
           知乎日报阅读器
         </h1>
+
+        {
+          this.props.themeList.fetching ? (
+            <div className="loading-wrapper">
+            <Loading/>
+            </div>
+          ) : null
+        }
+
+        {
+          this.props.themeList.error ? (
+            <div className="loading-wrapper">
+            <p>
+            服务器开小差了，请点击<button type="button" onClick={this.props.actions.fetchThemeList.bind(this)}>这里</button>重试~
+            </p>
+            </div>
+          ) : null
+        }
+
         <ul className="theme-list">
           <li>
             <Link to="/" onClick={
               () => {
+                this.props.actions.changeTitle('今日热文', 0);
                 this.props.actions.fetchLatestArticleList();
                 this.props.actions.hideArticleDetail();
                 this.props.actions.hideSideBar();
@@ -42,6 +63,7 @@ class SideBar extends Component {
                 <li key={key}>
                   <Link to={'/themes/' + theme.id} onClick={
                     () => {
+                      this.props.actions.changeTitle(theme.name, theme.id);
                       this.props.actions.fetchThemeArticleList(theme.id);
                       this.props.actions.hideArticleDetail();
                       this.props.actions.hideSideBar();

@@ -8,13 +8,23 @@ import SideBar from '../components/SideBar';
 import TitleBar from '../components/TitleBar';
 
 class App extends Component {
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize.bind(this), false);
+  }
+
+  handleResize() {
+    if (window.innerWidth > 600) {
+      this.props.actions.hideSideBar();
+    }
+  }
+
   render() {
     return (
       <div className={'app-wrapper' + (this.props.layout.sideBarIsActive ? ' side-bar-active' : '')}>
 
         <SideBar themeList={this.props.themeList} layout={this.props.layout} actions={this.props.actions}/>
 
-        <TitleBar actions={this.props.actions} layout={this.props.layout}/>
+        <TitleBar titleBar={this.props.titleBar} actions={this.props.actions} layout={this.props.layout}/>
 
         {this.props.children}
       </div>
@@ -23,6 +33,7 @@ class App extends Component {
 }
 
 App.propTypes = {
+  titleBar: PropTypes.object,
   themeList: PropTypes.object,
   articleList: PropTypes.object,
   layout: PropTypes.shape({
@@ -34,6 +45,7 @@ App.propTypes = {
 
 function mapStateToProps(state) {
   return {
+    titleBar: state.titleBar,
     themeList: state.themeList,
     articleList: state.articleList,
     layout: state.layout

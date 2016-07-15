@@ -44,6 +44,23 @@ let actions = {
     return {
       type: 'HIDE_ARTICLE_DETAIL'
     };
+  },
+  changeTitle: function(name, id) {
+    return {
+      type: 'CHANGE_TITLE',
+      payload: {
+        theme: name,
+        themeId: id
+      }
+    };
+  },
+  changeArticleId: function(id) {
+    return {
+      type: 'CHANGE_ARTICLE_ID',
+      payload: {
+        id: id
+      }
+    };
   }
 };
 

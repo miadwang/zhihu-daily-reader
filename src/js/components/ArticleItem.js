@@ -4,8 +4,9 @@ import { Link } from 'react-router';
 class ArticleItem extends Component {
   render() {
     return (
-      <li className="article-item">
+      <li className="article-item" onMouseOver={console.log('Hover')}>
         <Link to={'/article/' + this.props.articleItem.id} onClick={() => {
+          this.props.actions.changeArticleId(this.props.articleItem.id);
           this.props.actions.fetchArticleDetail(this.props.articleItem.id);
           this.props.actions.hideSideBar();
           this.props.actions.showArticleDetail();
