@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import actions from '../actions';
-import TitleBar from '../components/TitleBar';
 import Loading from 'react-loading-animation';
 import TopArticleSlider from '../components/TopArticleSlider';
 import ArticleList from '../components/ArticleList';
@@ -15,14 +14,13 @@ class Main extends Component {
     super();
     this.state = {
       main: null,
-      titleBarBg: null,
-      scrollHight: 0
+      scrollHeight: 0,
+      titleBarOpacity: 0
     };
   }
 
   componentDidMount() {
     this.state.main = findDOMNode(this.refs.main);
-    this.state.titleBarBg = findDOMNode(this.refs.titleBarBg);
     const sliderHeight = findDOMNode(this.refs.slider).offsetHeight;
     this.state.scrollHeight = sliderHeight - 50;
   }
@@ -34,13 +32,15 @@ class Main extends Component {
   }
 
   handleReload() {
-    if (this.props.titleBar.theme === '今日热文') this.props.actions.fetchLatestArticleList();
+    if (this.props.theme === '今日热文') this.props.actions.fetchLatestArticleList();
     else this.props.actions.fetchThemeArticleList(this.props.titleBar.themeId);
   }
 
   handleScroll() {
-    if (this.state.titleBarBg.style.opacity < 1) {
-      this.state.titleBarBg.style.opacity = this.state.main.scrollTop / this.state.scrollHeight;
+    if (this.props.theme === '今日热文') {
+      const opacity = this.state.main.scrollTop / this.state.scrollHeight;
+      
+      this.props.actions.changeTitleBarOpacity(opacity);
     }
   }
 
@@ -53,10 +53,6 @@ class Main extends Component {
 
     return (
       <div ref="main" className="main" style={divStyle}>
-
-        <TitleBar ref="titleBar" titleBar={this.props.titleBar} actions={this.props.actions} layout={this.props.layout}/>
-
-        <div className="title-bar-background" ref="titleBarBg"/>
 
         {
           this.props.articleList.fetching ? (
@@ -84,7 +80,7 @@ class Main extends Component {
           }
 
           {
-            (this.props.titleBar.theme === '今日热文') ? <TopArticleSlider ref="slider" topArticleItems={this.props.articleList.topArticleItems} articleListIsFetched={this.props.articleList.fetched} actions={this.props.actions}/> : null
+            (this.props.theme === '今日热文') ? <TopArticleSlider ref="slider" topArticleItems={this.props.articleList.topArticleItems} articleListIsFetched={this.props.articleList.fetched} actions={this.props.actions}/> : null
           }
 
           <ArticleList articleList={this.props.articleList} actions={this.props.actions}/>
@@ -99,10 +95,6 @@ class Main extends Component {
 }
 
 Main.propTypes = {
-  titleBar: PropTypes.shape({
-    theme: PropTypes.string.isRequired,
-    themeId: PropTypes.number.isRequired
-  }).isRequired,
   articleList: PropTypes.shape({
     fetching: PropTypes.bool.isRequired,
     fetched: PropTypes.bool.isRequired,
@@ -119,7 +111,7 @@ Main.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    titleBar: state.titleBar,
+    theme: state.titleBar.theme,
     articleList: state.articleList,
     layout: state.layout
   };

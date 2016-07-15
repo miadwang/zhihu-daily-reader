@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Route, IndexRoute } from 'react-router';
 
 import actions from '../actions';
+import TitleBar from '../components/TitleBar';
 import SideBar from '../components/SideBar';
 
 class App extends Component {
@@ -22,6 +23,8 @@ class App extends Component {
       <div className={'app-wrapper' + (this.props.layout.sideBarIsActive ? ' side-bar-active' : '')}>
 
         <SideBar themeList={this.props.themeList} layout={this.props.layout} actions={this.props.actions}/>
+
+        <TitleBar ref="titleBar" titleBar={this.props.titleBar} actions={this.props.actions} layout={this.props.layout}/>
 
         {this.props.children}
       </div>

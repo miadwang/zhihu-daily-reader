@@ -45,13 +45,20 @@ let actions = {
       type: 'HIDE_ARTICLE_DETAIL'
     };
   },
-  changeTitle: function(name, id) {
+  changeTitle: function(name, id, image) {
     return {
       type: 'CHANGE_TITLE',
       payload: {
         theme: name,
-        themeId: id
+        themeId: id,
+        themeImage: image
       }
+    };
+  },
+  changeTitleBarOpacity: function(opacity) {
+    return {
+      type: 'CHANGE_OPACITY',
+      payload: opacity
     };
   },
   changeArticleId: function(id) {

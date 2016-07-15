@@ -1,9 +1,32 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
 class TitleBar extends Component {
   render() {
+    var divStyle = {};
+
+    if (this.props.layout.articleDetailIsActive) {
+      divStyle = {
+        display: none
+      };
+    } else if (this.props.titleBar.themeImage.length > 0) {
+      divStyle = {
+        backgroundImage:
+        'url(' + this.props.titleBar.themeImage.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/pic$1') + '), #2c82c9'
+      };
+    } else if (this.props.titleBar.theme !== '今日热文') {
+      divStyle = {
+        opacity: 1
+      };
+    } else {
+      divStyle = {
+        opacity: this.props.titleBar.backgroundOpacity
+      };
+    }
+
     return (
       <div className="title-bar">
+        <div className="title-bar-text">
         {
           this.props.layout.articleDetailIsActive ? (
             <button type="button" className="button-back" onClick={() => {
@@ -21,9 +44,12 @@ class TitleBar extends Component {
 
         {
           !this.props.layout.articleDetailIsActive ? (
-            <a href='#'>{this.props.titleBar.theme}</a>
+            <Link to={'/themes/' + this.props.titleBar.themeId}>{this.props.titleBar.theme}</Link>
           ) : null
         }
+        </div>
+
+        <div className="title-bar-background" style={divStyle}/>
       </div>
     );
   }
@@ -32,7 +58,9 @@ class TitleBar extends Component {
 TitleBar.propTypes = {
   titleBar: PropTypes.shape({
     theme: PropTypes.string.isRequired,
-    themeId: PropTypes.number.isRequired
+    themeId: PropTypes.number.isRequired,
+    themeImage: PropTypes.string,
+    backgroundOpacity: PropTypes.number.isRequired
   }).isRequired,
   actions: PropTypes.object.isRequired,
   layout: PropTypes.shape({
