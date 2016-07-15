@@ -16,6 +16,7 @@ class Main extends Component {
       main: null,
       scrollHeight: 0,
     };
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
@@ -37,7 +38,7 @@ class Main extends Component {
 
   handleScroll() {
     if (this.props.theme === '今日热文') {
-      const opacity = this.state.main.scrollTop / this.state.scrollHeight;
+      var opacity = this.state.main.scrollTop / this.state.scrollHeight;
       this.props.actions.changeTitleBarOpacity(opacity);
     }
   }
@@ -70,7 +71,8 @@ class Main extends Component {
           ) : null
         }
 
-        <div className="article-list-wrapper" onScroll={this.handleScroll.bind(this)} onWheel={this.handleScroll.bind(this)}>
+        <div className="article-list-wrapper" onScroll={this.handleScroll} onWheel={this.handleScroll}
+        onTouchMove={this.handleScroll}>
           {
             this.props.layout.sideBarIsActive ? (
               <div className="frozer" onClick={this.props.actions.toggleSideBar}/>

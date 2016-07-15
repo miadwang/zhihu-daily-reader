@@ -95,6 +95,7 @@ class TopArticleSlider extends Component {
   }
 
   handleTouchEnd(e) {
+    e.preventDefault()
     const xPos = e.changedTouches[0].pageX;
     const deltaX = xPos - this.state.touchStartXPos;
     const activeImages = this.getActiveImages();
@@ -106,7 +107,11 @@ class TopArticleSlider extends Component {
     this.setState({
       animation: true
     });
-
+    if (deltaX < 2 && deltaX > -2) {
+      this.props.actions.fetchArticleDetail(this.props.topArticleItems[this.state.currentIndex].id);
+      this.props.actions.hideSideBar();
+      this.props.actions.showArticleDetail();
+    }
     if (deltaX > 20) this.swipeRight();
     if (deltaX < -20) this.swipeLeft();
 
