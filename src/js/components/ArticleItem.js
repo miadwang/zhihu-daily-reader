@@ -17,7 +17,7 @@ class ArticleItem extends Component {
 
           {
             this.props.articleItem.images ? <div className="image" style={{
-              backgroundImage: `url(${this.props.articleItem.images[0].replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/pic$1')})`
+              backgroundImage: `url(${this.props.articleItem.images[0].replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihuproxy.daoapp.io/pic$1')})`
             }}/> : null
           }
 

@@ -9,6 +9,32 @@ import Loading from 'react-loading-animation';
 import '../../css/zhihu.css';
 
 class ArticleDetail extends Component {
+  constructor() {
+    super();
+    this.state = {
+      touchStartXPos: 0
+    };
+    this.handleTouchStart = this.handleTouchStart.bind(this);
+    this.handleTouchEnd = this.handleTouchEnd.bind(this);
+    this.handleScrollInLoading = this.handleScrollInLoading.bind(this);
+  }
+
+  handleTouchStart(e) {
+    this.setState({
+      touchStartXPos: e.touches[0].pageX,
+    });
+  }
+
+  handleTouchEnd(e) {
+    const xPos = e.changedTouches[0].pageX;
+    const deltaX = xPos - this.state.touchStartXPos;
+
+    if (deltaX > 100) {
+      this.context.router.goBack();
+      this.props.actions.hideArticleDetail();
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.layout.articleDetailIsActive) {
       const detail = findDOMNode(this.refs.detail);
@@ -26,7 +52,7 @@ class ArticleDetail extends Component {
     this.props.actions.fetchArticleDetail(this.props.articleDetail.id);
   }
 
-  handleScroll(e) {
+  handleScrollInLoading(e) {
     e.preventDefault();
   }
 
@@ -38,11 +64,11 @@ class ArticleDetail extends Component {
     };
 
     return (
-      <div ref="detail" style={divStyle} className={'article-detail-wrapper' + (this.props.layout.articleDetailIsActive ? ' article-detail-active' : '')}>
+      <div ref="detail" style={divStyle} className={'article-detail-wrapper' + (this.props.layout.articleDetailIsActive ? ' article-detail-active' : '')} onTouchStart={this.handleTouchStart} onTouchEnd={this.handleTouchEnd}>
 
         {
           this.props.articleDetail.fetching ? (
-            <div className="loading-wrapper" onScroll={this.handleScroll.bind(this)} onWheel={this.handleScroll.bind(this)}>
+            <div className="loading-wrapper" onScroll={this.handleScrollInLoading} onWheel={this.handleScrollInLoading}>
               <Loading/>
             </div>
           ) : null
@@ -68,14 +94,14 @@ class ArticleDetail extends Component {
               // backgroundImage: `-webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img})`,
               // backgroundImage: `-o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img})`,
               // backgroundImage: `-ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${nextProps.articleDetail.img})`,
-              backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${ this.props.articleDetail.img.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/pic$1')})`
+              backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${ this.props.articleDetail.img.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihuproxy.daoapp.io/pic$1')})`
             }}>
               <h1>{this.props.articleDetail.title}</h1>
               <h2>图片：{this.props.articleDetail.imgSource}</h2>
             </div> : null
           }
 
-          <div className="inner-html" ref="innerHtml" dangerouslySetInnerHTML={this.createMarkup(this.props.articleDetail.body.replace(/https?:\/\/pic(\d)\.zhimg\.com/g, 'https://yuanotes-zhihudaily-proxy.daoapp.io/pic$1'))}/>
+          <div className="inner-html" ref="innerHtml" dangerouslySetInnerHTML={this.createMarkup(this.props.articleDetail.body.replace(/https?:\/\/pic(\d)\.zhimg\.com/g, 'https://yuanotes-zhihuproxy.daoapp.io/pic$1'))}/>
         </div>
       </div>
     );
@@ -97,6 +123,10 @@ ArticleDetail.propTypes = {
   layout: PropTypes.shape({
     articleDetailIsActive: PropTypes.bool.isRequired
   }).isRequired
+};
+
+ArticleDetail.contextTypes = {
+  router: React.PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {

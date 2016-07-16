@@ -14,7 +14,7 @@ class TitleBar extends Component {
     } else if (this.props.titleBar.themeImage.length > 0) {
       divStyle = {...divStyle,
         backgroundImage:
-        `url(${this.props.titleBar.themeImage.replace(/http:\/\/(pi?c?\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/$1')})`,
+        `url(${this.props.titleBar.themeImage.replace(/http:\/\/(pi?c?\d)\.zhimg\.com/, 'https://yuanotes-zhihuproxy.daoapp.io/$1')})`,
         WebkitFilter: 'blur(2px)',
         filter: 'blur(2px)'
       };
