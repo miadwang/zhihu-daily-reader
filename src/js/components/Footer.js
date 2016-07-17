@@ -4,7 +4,7 @@ class Footer extends Component {
   render() {
     return (
       <div className="footer">
-        Footer
+        Created by Mia Wang using React Redux
       </div>
     );
   }

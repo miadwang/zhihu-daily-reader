@@ -13,7 +13,7 @@ class Main extends Component {
   constructor() {
     super();
     this.state = {
-      main: null,
+      articelListWrapper: null,
       scrollHeight: 0,
     };
     this.handleScroll = this.handleScroll.bind(this);
@@ -21,14 +21,14 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    this.state.main = findDOMNode(this.refs.main);
+    this.state.articelListWrapper = findDOMNode(this.refs.articelListWrapper);
     const sliderHeight = findDOMNode(this.refs.slider).offsetHeight;
     this.state.scrollHeight = sliderHeight - 50;
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.theme !== nextProps.theme) {
-      this.state.main.scrollTop = 0;
+      this.state.articelListWrapper.scrollTop = 0;
     }
   }
 
@@ -39,7 +39,7 @@ class Main extends Component {
 
   handleScroll() {
     if (this.props.theme === '今日热文') {
-      var opacity = this.state.main.scrollTop / this.state.scrollHeight;
+      var opacity = this.state.articelListWrapper.scrollTop / this.state.scrollHeight;
       this.props.actions.changeTitleBarOpacity(opacity);
     }
   }
@@ -57,7 +57,7 @@ class Main extends Component {
     };
 
     return (
-      <div ref="main" className="main" style={divStyle}>
+      <div ref="main" className="main">
 
         {
           this.props.articleList.fetching ? (
@@ -77,8 +77,7 @@ class Main extends Component {
           ) : null
         }
 
-        <div className="article-list-wrapper" onScroll={this.handleScroll} onWheel={this.handleScroll}
-        onTouchMove={this.handleScroll}>
+        <div className="article-list-wrapper" ref="articelListWrapper" style={divStyle} onScroll={this.handleScroll} onWheel={this.handleScroll}>
           {
             this.props.layout.sideBarIsActive ? (
               <div className="frozer" onClick={this.handleFrozerClick} onTouchEnd={this.handleFrozerClick}/>

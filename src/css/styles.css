@@ -301,7 +301,7 @@ li.current-index {
 /*translate3d can prevent items from disapearring in scrolling*/
 
 .article-item a {
-  color: rgb(51, 51, 51);
+  color: #333;
   font-size: 16px;
   line-height: 1.4;
   display: block;
@@ -312,17 +312,8 @@ li.current-index {
   overflow: auto;
 }
 
-.article-item a:link {
-  color: red;
-}
-.article-item a:visited {
-  color: blue;
-}
-.article-item a:hover {
-  color: green;
-}
-.article-item a:active {
-  color: yellow;
+.article-item a.clicked {
+  color: #777;
 }
 
 .article-item span {
