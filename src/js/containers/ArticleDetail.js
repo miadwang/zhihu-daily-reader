@@ -101,7 +101,7 @@ class ArticleDetail extends Component {
             </div> : null
           }
 
-          <div className="inner-html" ref="innerHtml" dangerouslySetInnerHTML={this.createMarkup(this.props.articleDetail.body.replace(/https?:\/\/pic(\d)\.zhimg\.com/g, 'https://zhihuproxy.daoapp.io/pic$1'))}/>
+          <div className="inner-html" ref="innerHtml" dangerouslySetInnerHTML={this.createMarkup(this.props.articleDetail.body.replace(/https?:\/\/(p(ic)?\d)\.zhimg\.com/g, 'https://zhihuproxy.daoapp.io/$1'))}/>
         </div>
       </div>
     );
