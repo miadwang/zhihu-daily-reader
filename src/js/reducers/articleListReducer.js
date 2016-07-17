@@ -4,13 +4,14 @@ const articleListInitialState = {
   error: null,
   date: '',
   topArticleItems: [],
-  articleItems: []
+  articleItems: [],
+  editors: []
 };
 
 const articleListReducer = (state=articleListInitialState, action) => {
   switch(action.type) {
     case 'FETCH_LATEST_ARTICLE_LIST_PENDING': {
-      return {...state, fetching: true, fetched: false, error: null};
+      return {...state, fetching: true, fetched: false, error: null, editors: []};
     }
     case 'FETCH_LATEST_ARTICLE_LIST_REJECTED': {
       return {...state, fetching: false, error: action.payload};
@@ -35,7 +36,8 @@ const articleListReducer = (state=articleListInitialState, action) => {
           fetching: false,
           fetched: true,
           articleItems: action.payload.data.stories,
-          topArticleItems: []
+          topArticleItems: [],
+          editors: action.payload.data.editors
       };
     }
   }

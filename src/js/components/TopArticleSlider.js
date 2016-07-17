@@ -27,6 +27,8 @@ class TopArticleSlider extends Component {
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
     this.handleTouchMove = this.handleTouchMove.bind(this);
+    this.handleLeftControlClick = this.handleLeftControlClick.bind(this);
+    this.handleRightControlClick = this.handleRightControlClick.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -34,7 +36,7 @@ class TopArticleSlider extends Component {
       this.state.imageGallery = findDOMNode(this.refs.imageGallery);
       this.state.number = this.state.imageGallery.children.length;
       const self = this;
-      this.state.timer = setInterval(() => {self.swipeLeft();}, 2000);
+      this.state.timer = setInterval(() => {self.swipeLeft();}, 5000);
     }
   }
 
@@ -114,7 +116,25 @@ class TopArticleSlider extends Component {
     if (deltaX < -20) this.swipeLeft();
 
     const self = this;
-    self.state.timer = setInterval(() => {self.swipeLeft();}, 2000);
+    self.state.timer = setInterval(() => {self.swipeLeft();}, 5000);
+  }
+
+  handleLeftControlClick() {
+    this.swipeRight();
+    clearInterval(this.state.timer);
+    const self = this;
+    this.setState({
+      timer: setInterval(() => {self.swipeLeft();}, 5000)
+    });
+  }
+
+  handleRightControlClick() {
+    this.swipeLeft();
+    clearInterval(this.state.timer);
+    const self = this;
+    this.setState({
+      timer: setInterval(() => {self.swipeLeft();}, 5000)
+    });
   }
 
   render() {
@@ -122,7 +142,7 @@ class TopArticleSlider extends Component {
       <div className="top-article-slider">
         {
           this.props.articleListIsFetched ?
-          <div ref="imageGallery" className="image-gallery" onClick={this.handleTouchStart}>
+          <div ref="imageGallery" className="image-gallery">
           {
             this.props.topArticleItems.map((topArticleItem, index) => (
               <Link key={index}
@@ -134,6 +154,7 @@ class TopArticleSlider extends Component {
               onTouchStart={this.handleTouchStart}
               onTouchMove={this.handleTouchMove}
               onTouchEnd={this.handleTouchEnd}
+              onTouchCancel={this.handleTouchEnd}
               className={
                 classNames({
                   'current-image': (this.state.currentIndex === index),
@@ -149,7 +170,7 @@ class TopArticleSlider extends Component {
                 // backgroundImage: `-webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
                 // backgroundImage: `-o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
                 // backgroundImage: `-ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image})`,
-                backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihuproxy.daoapp.io/pic$1')})`
+                backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.5) 100%),url(${topArticleItem.image.replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://zhihuproxy.daoapp.io/pic$1')})`
               }}/>
               <h1>{topArticleItem.title}</h1>
               </Link>
@@ -158,7 +179,10 @@ class TopArticleSlider extends Component {
           </div> : null
         }
 
-        <div className="control">
+        <button className="left" onClick={this.handleLeftControlClick}>&#10151;</button>
+        <button className="right" onClick={this.handleRightControlClick}>&#10151;</button>
+
+        <div className="indicator">
           <ul>
             {
               this.props.topArticleItems.map((topArticleItem, index) =>

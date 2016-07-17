@@ -22,7 +22,7 @@ class App extends Component {
     return (
       <div className={'app-wrapper' + (this.props.layout.sideBarIsActive ? ' side-bar-active' : '')}>
 
-        <SideBar themeList={this.props.themeList} layout={this.props.layout} actions={this.props.actions}/>
+        <SideBar themeList={this.props.themeList} theme={this.props.theme} layout={this.props.layout} actions={this.props.actions}/>
 
         <TitleBar ref="titleBar" titleBar={this.props.titleBar} actions={this.props.actions} layout={this.props.layout}/>
 
@@ -34,6 +34,7 @@ class App extends Component {
 
 App.propTypes = {
   titleBar: PropTypes.object,
+  theme: PropTypes.string.isRequired,
   themeList: PropTypes.object,
   articleList: PropTypes.object,
   layout: PropTypes.shape({
@@ -46,6 +47,7 @@ App.propTypes = {
 function mapStateToProps(state) {
   return {
     titleBar: state.titleBar,
+    theme: state.titleBar.theme,
     themeList: state.themeList,
     articleList: state.articleList,
     layout: state.layout

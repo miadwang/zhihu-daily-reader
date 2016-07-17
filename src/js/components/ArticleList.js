@@ -26,11 +26,8 @@ class ArticleList extends Component {
   }
 
   render() {
-    const divStyle = {
-      marginTop: (this.props.theme === '今日热文' ? '' : '50px')
-    };
     return (
-      <ul className="article-list" style={divStyle} onTouchStart={this.handleTouchStart} onTouchEnd={this.handleTouchEnd}>
+      <ul className="article-list" onTouchStart={this.handleTouchStart} onTouchEnd={this.handleTouchEnd}>
         {
           this.props.articleList.articleItems.map((articleItem, key) => <ArticleItem key={key} articleItem={articleItem} actions={this.props.actions}/>)
         }
@@ -46,7 +43,8 @@ ArticleList.propTypes = {
     date: PropTypes.string.isRequired,
     error: PropTypes.object,
     topArticleItems: PropTypes.arrayOf(PropTypes.object),
-    articleItems: PropTypes.arrayOf(PropTypes.object).isRequired
+    articleItems: PropTypes.arrayOf(PropTypes.object).isRequired,
+    editors: PropTypes.arrayOf(PropTypes.object)
   }),
   theme: PropTypes.string.isRequired,
   children: PropTypes.node,

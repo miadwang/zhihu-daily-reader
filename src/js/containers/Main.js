@@ -6,6 +6,7 @@ import actions from '../actions';
 import Loading from 'react-loading-animation';
 import TopArticleSlider from '../components/TopArticleSlider';
 import ArticleList from '../components/ArticleList';
+import EditorList from '../components/EditorList';
 import Footer from '../components/Footer';
 import { findDOMNode } from 'react-dom';
 
@@ -88,6 +89,11 @@ class Main extends Component {
             (this.props.theme === '今日热文') ? <TopArticleSlider ref="slider" topArticleItems={this.props.articleList.topArticleItems} articleListIsFetched={this.props.articleList.fetched} actions={this.props.actions}/> : null
           }
 
+          {
+            this.props.articleList.editors.length > 0 ?
+            <EditorList editors={this.props.articleList.editors}/> : null
+          }
+
           <ArticleList articleList={this.props.articleList} theme={this.props.theme} actions={this.props.actions}/>
 
           <Footer actions={this.props.actions}/>
@@ -104,9 +110,11 @@ Main.propTypes = {
     fetching: PropTypes.bool.isRequired,
     fetched: PropTypes.bool.isRequired,
     error: PropTypes.object,
-    topArticleItems: PropTypes.arrayOf(PropTypes.object)
+    topArticleItems: PropTypes.arrayOf(PropTypes.object),
+    editors: PropTypes.arrayOf(PropTypes.object)
   }),
   theme: PropTypes.string.isRequired,
+  themeId: PropTypes.number.isRequired,
   layout: PropTypes.shape({
     sideBarIsActive: PropTypes.bool.isRequired,
     articleDetailIsActive: PropTypes.bool.isRequired
@@ -118,6 +126,7 @@ Main.propTypes = {
 function mapStateToProps(state) {
   return {
     theme: state.titleBar.theme,
+    themeId: state.titleBar.themeId,
     articleList: state.articleList,
     layout: state.layout
   };

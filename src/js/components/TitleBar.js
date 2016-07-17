@@ -14,9 +14,9 @@ class TitleBar extends Component {
     } else if (this.props.titleBar.themeImage.length > 0) {
       divStyle = {...divStyle,
         backgroundImage:
-        `url(${this.props.titleBar.themeImage.replace(/http:\/\/(pi?c?\d)\.zhimg\.com/, 'https://yuanotes-zhihuproxy.daoapp.io/$1')})`,
-        WebkitFilter: 'blur(2px)',
-        filter: 'blur(2px)'
+        `url(${this.props.titleBar.themeImage.replace(/http:\/\/(pi?c?\d)\.zhimg\.com/, 'https://zhihuproxy.daoapp.io/$1')})`,
+        WebkitFilter: 'blur(5px)',
+        filter: 'blur(5px)'
       };
     }
 
@@ -29,11 +29,11 @@ class TitleBar extends Component {
               this.context.router.goBack();
               this.props.actions.hideArticleDetail();
             }}>
-              Back
+              &#10142;
             </button>
           ) : (
             <button type="button" className="button-menu" onClick={this.props.actions.toggleSideBar}>
-            &#9776;
+              &#9776;
             </button>
           )
         }
@@ -45,7 +45,9 @@ class TitleBar extends Component {
         }
         </div>
 
-        <div className="title-bar-background" style={divStyle}/>
+        <div className="title-bar-background">
+          <div className="background-image" style={divStyle}/>
+        </div>
       </div>
     );
   }
