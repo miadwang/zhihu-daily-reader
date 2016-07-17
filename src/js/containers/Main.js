@@ -6,20 +6,48 @@ import actions from '../actions';
 import Loading from 'react-loading-animation';
 import TopArticleSlider from '../components/TopArticleSlider';
 import ArticleList from '../components/ArticleList';
+import EditorList from '../components/EditorList';
 import Footer from '../components/Footer';
 import { findDOMNode } from 'react-dom';
 
 class Main extends Component {
+  constructor() {
+    super();
+    this.state = {
+      articelListWrapper: null,
+      scrollHeight: 0,
+    };
+    this.handleScroll = this.handleScroll.bind(this);
+    this.handleFrozerClick = this.handleFrozerClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.state.articelListWrapper = findDOMNode(this.refs.articelListWrapper);
+    const sliderHeight = findDOMNode(this.refs.slider).offsetHeight;
+    this.state.scrollHeight = sliderHeight - 50;
+  }
+
   componentWillReceiveProps(nextProps) {
-    if (!this.props.layout.articleDetailIsActive && !nextProps.layout.articleDetailIsActive) {
-      const main = findDOMNode(this.refs.main);
-      main.scrollTop = 0;
+    if (this.props.theme !== nextProps.theme) {
+      this.state.articelListWrapper.scrollTop = 0;
     }
   }
-  
+
   handleReload() {
-    if (this.props.titleBar.theme === '今日热文') this.props.actions.fetchLatestArticleList();
+    if (this.props.theme === '今日热文') this.props.actions.fetchLatestArticleList();
     else this.props.actions.fetchThemeArticleList(this.props.titleBar.themeId);
+  }
+
+  handleScroll() {
+    if (this.props.theme === '今日热文') {
+      var opacity = this.state.articelListWrapper.scrollTop / this.state.scrollHeight;
+      this.props.actions.changeTitleBarOpacity(opacity);
+    }
+  }
+
+  handleFrozerClick(e) {
+    e.preventDefault();
+    this.props.actions.hideSideBar();
   }
 
   render() {
@@ -30,37 +58,43 @@ class Main extends Component {
     };
 
     return (
-      <div ref="main" className="main" style={divStyle}>
+      <div ref="main" className="main">
 
-      {
-        this.props.articleList.fetching ? (
-          <div className="loading-wrapper under-main">
-            <Loading/>
-          </div>
-        ) : null
-      }
-
-      {
-        this.props.articleList.error ? (
-          <div className="loading-wrapper under-main">
-            <p>
-              服务器开小差了，请点击<button type="button" onClick={this.handleReload.bind(this)}>这里</button>重试~
-            </p>
-          </div>
-        ) : null
-      }
-
-        <div className="article-list-wrapper">
         {
-          this.props.layout.sideBarIsActive ? (
-            <div className="frozer" onClick={this.props.actions.toggleSideBar}/>
+          this.props.articleList.fetching ? (
+            <div className="loading-wrapper under-main">
+              <Loading/>
+            </div>
           ) : null
         }
+
+        {
+          this.props.articleList.error ? (
+            <div className="loading-wrapper under-main">
+              <p>
+                服务器开小差了，请点击<button type="button" onClick={this.handleReload.bind(this)}>这里</button>重试~
+              </p>
+            </div>
+          ) : null
+        }
+
+        <div className="article-list-wrapper" ref="articelListWrapper" style={divStyle} onScroll={this.handleScroll} onWheel={this.handleScroll}>
           {
-            (this.props.titleBar.theme === '今日热文' && this.props.articleList.fetched) ? <TopArticleSlider ref="slider" topArticleItems={this.props.articleList.topArticleItems} actions={this.props.actions}/> : null
+            this.props.layout.sideBarIsActive ? (
+              <div className="frozer" onClick={this.handleFrozerClick} onTouchEnd={this.handleFrozerClick}/>
+            ) : null
           }
 
-          <ArticleList articleList={this.props.articleList} actions={this.props.actions}/>
+          {
+            (this.props.theme === '今日热文') ? <TopArticleSlider ref="slider" topArticleItems={this.props.articleList.topArticleItems} articleListIsFetched={this.props.articleList.fetched} actions={this.props.actions}/> : null
+          }
+
+          {
+            this.props.articleList.editors.length > 0 ?
+            <EditorList editors={this.props.articleList.editors}/> : null
+          }
+
+          <ArticleList articleList={this.props.articleList} theme={this.props.theme} actions={this.props.actions}/>
 
           <Footer actions={this.props.actions}/>
         </div>
@@ -72,15 +106,15 @@ class Main extends Component {
 }
 
 Main.propTypes = {
-  titleBar: PropTypes.shape({
-    theme: PropTypes.string.isRequired,
-    themeId: PropTypes.number.isRequired
-  }).isRequired,
   articleList: PropTypes.shape({
     fetching: PropTypes.bool.isRequired,
+    fetched: PropTypes.bool.isRequired,
     error: PropTypes.object,
-    topArticleItems: PropTypes.arrayOf(PropTypes.object)
+    topArticleItems: PropTypes.arrayOf(PropTypes.object),
+    editors: PropTypes.arrayOf(PropTypes.object)
   }),
+  theme: PropTypes.string.isRequired,
+  themeId: PropTypes.number.isRequired,
   layout: PropTypes.shape({
     sideBarIsActive: PropTypes.bool.isRequired,
     articleDetailIsActive: PropTypes.bool.isRequired
@@ -91,7 +125,8 @@ Main.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    titleBar: state.titleBar,
+    theme: state.titleBar.theme,
+    themeId: state.titleBar.themeId,
     articleList: state.articleList,
     layout: state.layout
   };

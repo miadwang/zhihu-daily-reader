@@ -1,12 +1,17 @@
 const titleBarInitialState = {
   theme: '今日热文',
-  themeId: 0
+  themeId: 0,
+  themeImage: '',
+  backgroundOpacity: 0
 };
 
 const titleBarReducer = (state=titleBarInitialState, action) => {
   switch(action.type) {
     case 'CHANGE_TITLE': {
-      return {theme: action.payload.theme, themeId: action.payload.themeId};
+      return {...state, theme: action.payload.theme, themeId: action.payload.themeId, themeImage: action.payload.themeImage, backgroundOpacity: action.payload.backgroundOpacity};
+    }
+    case 'CHANGE_OPACITY': {
+      return {...state, backgroundOpacity: action.payload}
     }
   }
   return state;

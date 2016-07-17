@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import { Route, IndexRoute } from 'react-router';
 
 import actions from '../actions';
-import SideBar from '../components/SideBar';
 import TitleBar from '../components/TitleBar';
+import SideBar from '../components/SideBar';
 
 class App extends Component {
   componentDidMount() {
@@ -22,9 +22,9 @@ class App extends Component {
     return (
       <div className={'app-wrapper' + (this.props.layout.sideBarIsActive ? ' side-bar-active' : '')}>
 
-        <SideBar themeList={this.props.themeList} layout={this.props.layout} actions={this.props.actions}/>
+        <SideBar themeList={this.props.themeList} theme={this.props.theme} layout={this.props.layout} actions={this.props.actions}/>
 
-        <TitleBar titleBar={this.props.titleBar} actions={this.props.actions} layout={this.props.layout}/>
+        <TitleBar ref="titleBar" titleBar={this.props.titleBar} actions={this.props.actions} layout={this.props.layout}/>
 
         {this.props.children}
       </div>
@@ -34,6 +34,7 @@ class App extends Component {
 
 App.propTypes = {
   titleBar: PropTypes.object,
+  theme: PropTypes.string.isRequired,
   themeList: PropTypes.object,
   articleList: PropTypes.object,
   layout: PropTypes.shape({
@@ -46,6 +47,7 @@ App.propTypes = {
 function mapStateToProps(state) {
   return {
     titleBar: state.titleBar,
+    theme: state.titleBar.theme,
     themeList: state.themeList,
     articleList: state.articleList,
     layout: state.layout

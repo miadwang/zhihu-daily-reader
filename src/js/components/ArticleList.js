@@ -3,9 +3,31 @@ import React, { Component, PropTypes } from 'react';
 import ArticleItem from './ArticleItem';
 
 class ArticleList extends Component {
+  constructor() {
+    super();
+    this.state = {
+      touchStartXPos: 0
+    };
+    this.handleTouchStart = this.handleTouchStart.bind(this);
+    this.handleTouchEnd = this.handleTouchEnd.bind(this);
+  }
+
+  handleTouchStart(e) {
+    this.setState({
+      touchStartXPos: e.touches[0].pageX,
+    });
+  }
+
+  handleTouchEnd(e) {
+    const xPos = e.changedTouches[0].pageX;
+    const deltaX = xPos - this.state.touchStartXPos;
+
+    if (deltaX > 100 && window.innerWidth <= 600) this.props.actions.toggleSideBar();
+  }
+
   render() {
     return (
-      <ul className="article-list">
+      <ul className="article-list" onTouchStart={this.handleTouchStart} onTouchEnd={this.handleTouchEnd}>
         {
           this.props.articleList.articleItems.map((articleItem, key) => <ArticleItem key={key} articleItem={articleItem} actions={this.props.actions}/>)
         }
@@ -21,8 +43,10 @@ ArticleList.propTypes = {
     date: PropTypes.string.isRequired,
     error: PropTypes.object,
     topArticleItems: PropTypes.arrayOf(PropTypes.object),
-    articleItems: PropTypes.arrayOf(PropTypes.object).isRequired
+    articleItems: PropTypes.arrayOf(PropTypes.object).isRequired,
+    editors: PropTypes.arrayOf(PropTypes.object)
   }),
+  theme: PropTypes.string.isRequired,
   children: PropTypes.node,
   actions: PropTypes.object.isRequired
 };

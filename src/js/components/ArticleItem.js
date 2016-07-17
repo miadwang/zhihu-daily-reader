@@ -2,14 +2,24 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
 class ArticleItem extends Component {
+  constructor() {
+    super();
+    this.state = {
+      clicked: false
+    };
+  }
+
   render() {
     return (
-      <li className="article-item" onMouseOver={console.log('Hover')}>
-        <Link to={'/article/' + this.props.articleItem.id} onClick={() => {
+      <li className="article-item">
+        <Link to={'/article/' + this.props.articleItem.id} className={this.state.clicked ? 'clicked' : ''} onClick={() => {
           this.props.actions.changeArticleId(this.props.articleItem.id);
           this.props.actions.fetchArticleDetail(this.props.articleItem.id);
           this.props.actions.hideSideBar();
           this.props.actions.showArticleDetail();
+          this.setState({
+            clicked: true
+          });
         }}>
           <span>
             {this.props.articleItem.title}
@@ -17,7 +27,7 @@ class ArticleItem extends Component {
 
           {
             this.props.articleItem.images ? <div className="image" style={{
-              backgroundImage: `url(${this.props.articleItem.images[0].replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://yuanotes-zhihudaily-proxy.daoapp.io/pic$1')})`
+              backgroundImage: `url(${this.props.articleItem.images[0].replace(/http:\/\/pic(\d)\.zhimg\.com/, 'https://zhihuproxy.daoapp.io/pic$1')})`
             }}/> : null
           }
 

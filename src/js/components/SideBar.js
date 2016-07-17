@@ -28,7 +28,7 @@ class SideBar extends Component {
         {
           this.props.themeList.fetching ? (
             <div className="loading-wrapper">
-            <Loading/>
+              <Loading/>
             </div>
           ) : null
         }
@@ -45,15 +45,15 @@ class SideBar extends Component {
 
         <ul className="theme-list">
           <li>
-            <Link to="/" onClick={
+            <Link to="/" className={this.props.theme === '今日热文'? 'active' : ''} onClick={
               () => {
-                this.props.actions.changeTitle('今日热文', 0);
+                this.props.actions.changeTitle('今日热文', 0, '', 0);
                 this.props.actions.fetchLatestArticleList();
                 this.props.actions.hideArticleDetail();
                 this.props.actions.hideSideBar();
               }
             }>
-              今日热文
+               首页
             </Link>
           </li>
 
@@ -61,9 +61,9 @@ class SideBar extends Component {
             this.props.themeList.themes.map((theme, key) => {
               return (
                 <li key={key}>
-                  <Link to={'/themes/' + theme.id} onClick={
+                  <Link to={'/themes/' + theme.id} className={this.props.theme === theme.name ? 'active' : ''} onClick={
                     () => {
-                      this.props.actions.changeTitle(theme.name, theme.id);
+                      this.props.actions.changeTitle(theme.name, theme.id, theme.thumbnail, 1);
                       this.props.actions.fetchThemeArticleList(theme.id);
                       this.props.actions.hideArticleDetail();
                       this.props.actions.hideSideBar();
@@ -91,6 +91,7 @@ SideBar.propTypes = {
       name: PropTypes.string.ifRequired
     }).isRequired).isRequired
   }),
+  theme: PropTypes.string.isRequired,
   layout: PropTypes.shape({
     sideBarIsActive: PropTypes.bool.isRequired
   }).isRequired,
