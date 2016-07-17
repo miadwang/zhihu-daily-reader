@@ -76,6 +76,7 @@ class SideBar extends Component {
             })
           }
         </ul>
+        <a className="myself" href="https://github.com/miadwang">@Mia Wang</a>
       </div>
     );
   }
