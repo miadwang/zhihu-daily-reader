@@ -1,0 +1,658 @@
+/** {
+  outline: solid 1px red
+}*/
+
+
+
+/*Mobile First*/
+html,
+body {
+  padding: 0;
+  width: 100vw;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.app-wrapper {
+  font-size: 14px;
+  width: 100vw;
+  height: 100%;
+  margin: 0 auto;
+  font-family: 'Helvetica Neue', Helvetica, arial, sans-serif;
+  position: fixed;
+  overflow-x: hidden;
+  background-color: white;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+
+
+/*Side Bar Styles*/
+.side-bar {
+  width: 200px;
+  height: 100%;
+  position: fixed;
+  left: -200px;
+  background-color: #35332e;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  color: #c7c3b7;
+}
+/*translate3d is way faster than left on iphone. 100% percentage is relative to the div width not the parent div width!!!*/
+
+.side-bar h1 {
+  font-size: 18px;
+  font-weight: normal;
+  margin: 20px 35px;
+  padding: 0;
+}
+
+.side-bar-active .side-bar{
+  transform: translate3d(100%, 0, 0);
+}
+
+.theme-list {
+  padding: 0;
+  margin: 20px 0px;
+}
+
+.theme-list li {
+  list-style: none;
+}
+
+.theme-list a {
+  font-size: 16px;
+  line-height: 1.4;
+  display: block;
+  padding: 12px 35px;
+  margin: 0;
+  text-decoration: none;
+  color: #c7c3b7;
+}
+
+a.active {
+  background-color: #262422;
+  color: white;
+}
+
+
+
+/*Title Bar Styles*/
+.title-bar {
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  background: transparent;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s ease;
+  z-index: 8000;
+  right: 0;
+}
+
+.side-bar-active .title-bar {
+  transform: translate3d(200px, 0, 0);
+}
+
+.title-bar-text {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 8100;
+}
+
+@keyframes appear {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.title-bar button {
+  display: block;
+  position: absolute;
+  color: white;
+  font-size: 20px;
+  border: none;
+  padding: 0;
+  margin: 17px 0 0 14px;
+  text-shadow: none;
+  background-color: inherit;
+  font-family: inherit;
+}
+
+.button-back {
+  animation: appear 0.2s ease;
+  animation-delay: 0.3s;
+  animation-fill-mode: both;
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+.title-bar a {
+  text-align: center;
+  clear: left;
+  display: block;
+  width: 100%;
+  font-size: 16px;
+  color: white;
+  text-decoration: none;
+  margin-top: 21px;
+  padding: 0;
+}
+
+.title-bar-background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 8050;
+  overflow: hidden;
+}
+
+.background-image {
+  width: 110%;
+  height: 110%;
+  position: absolute;
+  top: -5%;
+  left: -5%;
+  background-color: #2c82c9;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+}
+
+
+
+/*Main Styles*/
+.main {
+  background-color: white;
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  transition: transform 0.3s ease;
+  right: 0;
+}
+
+.frozer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: transparent;
+  z-index: 5000;
+}
+
+.side-bar-active .main{
+  transform: translate3d(200px, 0, 0);
+}
+/*no transform of main when side bar not active because it will prevent child divs from fixing!*/
+
+
+
+/*Main -- Article List Wrapper Styles*/
+.article-list-wrapper {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+}
+
+.side-bar-active .article-list-wrapper {
+  position: fixed;
+}
+/*Position fixed prevent the list from y scrolling. overflow hidden of app wrapper pervent the list from x scrolling*/
+
+
+
+/*Main -- Article List Wrapper -- Top Article Slider Styles*/
+.top-article-slider {
+  width: 100%;
+  height: 55vw;
+  transform: translate3d(0, 0, 0);
+  overflow: hidden;
+  will-change: transform;
+}
+
+.image-gallery {
+  position: absolute;
+  left: -100%;
+  width: 300%;
+  height: 55vw;
+  white-space: nowrap;
+}
+
+.image-gallery a {
+  width: 33.33%;
+  height: 55vw;
+  display: block;
+  position: absolute;
+  left: 66.67%;
+  opacity: 0;
+  z-index: 0;
+}
+
+.image-gallery .current-image {
+  left: 33.33%;
+  opacity: 1;
+  z-index: 30;
+}
+
+.image-gallery .prev-image {
+  left: 0;
+  opacity: 1;
+  z-index: 10;
+}
+
+.image-gallery .next-image {
+  left: 66.67%;
+  opacity: 1;
+  z-index: 20;
+}
+
+.image-gallery .animation {
+  transition: left 0.5s ease;
+}
+
+.image-gallery .image {
+  height: 55vw;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: white;
+}
+
+.image-gallery h1 {
+  margin: 0 20px;
+  padding: 0;
+  position: absolute;
+  bottom:  18px;
+  color: white;
+  font-size: 18px;
+  font-weight: normal;
+  white-space: pre-wrap;
+}
+
+.top-article-slider button {
+  display: none;
+  position: absolute;
+  color: white;
+  font-size: 30px;
+  border: none;
+  padding: 0;
+  margin: 0;
+  text-shadow: none;
+  background-color: transparent;
+  font-family: inherit;
+  bottom: 45%;
+  z-index: 100;
+}
+
+button.left {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  left: 14px;
+}
+
+button.right {
+  right: 14px;
+}
+
+.top-article-slider .indicator {
+  position: absolute;
+  z-index: 100;
+  bottom: 0;
+  left: calc(50% - 50px);
+  width: 150px;
+  text-align: left;
+  display: inline-block;
+}
+
+.indicator ul {
+  padding: 0;
+  margin: 0;
+}
+
+.indicator li {
+  list-style: none;
+  color: white;
+  opacity: 0.3;
+  display: inline-block;
+  margin-left: 8px;
+  margin-bottom: 5px;
+  text-decoration: none;
+}
+
+li.current-index {
+  opacity: 1;
+}
+/*Must use li*/
+
+
+
+/*Main -- Article List Wrapper -- Editor List Styles*/
+.editor-list {
+  padding: 8px 0 0 14px;
+  margin: 50px 0 0 0;
+  color: #777;
+  font-size: 14px;
+  line-height: 1.4;
+  border-bottom: solid 1px #ddd;
+}
+
+.editor-list li {
+  list-style: none;
+  display: inline-block;
+  margin-left: 8px;
+  margin-bottom: 5px;
+  text-decoration: none;
+}
+
+.editor-list img {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+}
+
+
+
+/*Main -- Article List Wrapper -- Article List Styles*/
+.article-list {
+  padding: 0;
+  margin: 0 14px;
+}
+
+.article-item {
+  list-style: none;
+  transform: translate3d(0, 0, 0);
+}
+/*translate3d can prevent items from disapearring in scrolling*/
+
+.article-item a {
+  color: #333;
+  font-size: 16px;
+  line-height: 1.4;
+  display: block;
+  padding: 10px 0;
+  margin: 0;
+  text-decoration: none;
+  border-bottom: solid 1px #ddd;
+  overflow: auto;
+}
+
+.article-item a.clicked {
+  color: #777;
+}
+
+.article-item span {
+  float: left;
+  width: 70%;
+}
+
+.article-item .image {
+  float: right;
+  width: 20%;
+  height: 16vw;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+
+/*Main -- Article Detail Styles*/
+.article-detail-wrapper {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 100vw;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s ease;
+  z-index: 100;
+  background: white;
+}
+
+.article-detail-active {
+  transform: translate3d(-100%, 0, 0);
+}
+
+.article-detail .image {
+  height: 55vw;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;;
+  z-index: 100;
+}
+
+.article-detail .image h1 {
+  position: absolute;
+  bottom:  18px;
+  margin: 0 20px;
+  padding: 0;
+  color: white;
+  font-size: 18px;
+  font-weight: normal;
+  white-space: pre-wrap;
+}
+
+.article-detail .image h2 {
+  margin: 0 20px;
+  position: absolute;
+  bottom: 8px;
+  right: 0;
+  font-size: 9px;
+  text-align: right;
+  color: white;
+  font-weight: 200;
+}
+
+.inner-html {
+  position: relative;
+  width: 100%;
+}
+
+
+
+/*Other Styles*/
+.loading-wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: inherit;
+  position: fixed;
+  z-index: 300;
+}
+
+.loading-wrapper div {
+  top: 40%;
+}
+
+.loading-wrapper p {
+  top: 40%;
+  text-align: center;
+  position: relative;
+  padding: 0 20px;
+}
+
+.loading-wrapper button {
+  display: inline-block;
+  text-decoration: none;
+  font-size: inherit;
+  line-height: 1.4;
+  color: white;
+  border: none;
+  padding: 0 4px;
+  margin: 0 4px;
+  text-shadow: none;
+  background-color: #2c82c9;
+  font-family: inherit;
+  border-radius: 4px;
+}
+
+.page-footer {
+  text-align: center;
+  padding: 20px 0;
+}
+
+
+
+/*Media Query for larger screens*/
+@media screen and (min-width: 600px) {
+  button.button-menu {
+    display: none;
+  }
+
+  .side-bar {
+    left: 0;
+  }
+
+  .title-bar,
+  .main,
+  .under-main {
+    width: calc(100% - 200px);
+    left: 200px;
+  }
+
+  .top-article-slider {
+    width: 100%;
+    height: 38vw;
+  }
+
+  .top-article-slider button {
+    display: block;
+  }
+
+  .article-detail-wrapper {
+    width: calc(100% - 200px);
+  }
+
+  .image-gallery,
+  .image-gallery a,
+  .image-gallery .image,
+  .article-detail .image {
+    height: 38vw;
+  }
+
+  .article-item .image {
+    height: 11.3vw;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .side-bar {
+    left: calc(50vw - 400px);
+  }
+
+  .title-bar {
+    width: 600px;
+    right: calc(50vw - 400px);
+    left: auto;
+  }
+
+  .main,
+  .under-main {
+    width: 600px;
+    left: auto;
+    right: calc(50vw - 400px);
+  }
+
+  .article-detail-wrapper {
+    width: 600px;
+  }
+
+  .article-detail-active {
+    transform: translate3d(calc(-100% - 50vw + 400px), 0, 0);
+  }
+
+  .top-article-slider,
+  .image-gallery,
+  .image-gallery a,
+  .image-gallery .image,
+  .article-detail .image {
+    height: 304px;
+  }
+
+  .article-item .image {
+    height: 90px;
+  }
+}
+
+/*@media screen and (min-width: 1000px) {
+  .app-wrapper {
+    margin-top: 30px;
+  }
+
+  .side-bar {
+    left: 50px;
+    top: 30px;
+    width: 250px;
+  }
+
+  .title-bar {
+    width: calc(50vw + 100px);
+    right: 100px;
+    top: 30px;
+  }
+
+  .main,
+  .under-main {
+    width: calc(50vw + 100px);
+    right: 100px;
+  }
+
+  .top-article-slider {
+    width: calc(50vw + 100px);
+    height: 304px;
+  }
+
+  .article-list {
+    margin-top: 20px;
+  }
+
+  .article-detail-wrapper {
+    width: calc(50vw + 100px);
+    top: 30px;
+  }
+
+  .article-detail-active {
+    transform: translate3d(calc(-100% - 100px), 0, 0);
+  }
+
+  .article-item a {
+    padding: 15px 0;
+  }
+
+  .article-item .image {
+    height: 90px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .side-bar {
+    left: calc(50vw - 550px);
+  }
+
+  .title-bar,
+  .main,
+  .under-main {
+    width: 650px;
+    right: calc(50vw - 500px);
+  }
+
+  .top-article-slider,
+  .article-detail-wrapper {
+    width: 650px;
+  }
+
+  .article-detail-active {
+    transform: translate3d(calc(-50vw - 150px), 0, 0);
+  }
+}*/
